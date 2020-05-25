@@ -1,0 +1,163 @@
+<div class="x_panel">
+    <div class="x_content">
+        <ul class="list-unstyled timeline">
+
+            <li>
+                <ca-data-row row-label='Metric'>
+                    <div class='ca-data-input'>
+                        <span class='ca-label'>The graph shows the</span>
+                        <ca-input-select name='metric' model='$ctrl.model.metric' options='$ctrl.metrics'
+                            blank-option='Select Metric'
+                        ></ca-input-select>
+                        <span class='ca-label'>analysis</span>
+                    </div>
+                </ca-data-row>
+            </li>
+
+            <li>
+                <ca-data-row row-label='Users'>
+                    <div class='ca-data-input'>
+                        <div>
+                            <span class='ca-label'>based on</span>
+                            <ca-input-select name='userType' model='$ctrl.model.userType' options='$ctrl.userTypes'
+                                blank-option='Select User Type'
+                            ></ca-input-select>
+                        </div>
+
+                        <div class='ca-data-input--extra' ng-if='$ctrl.model.userType && $ctrl.model.userType!="general"'>
+                            <span class='ca-label'>The loyal users are users who did</span>
+                            <ca-input-select name='userEvent' model='$ctrl.model.userEvent' options='$ctrl.events'
+                                blank-option='Select Event'
+                            ></ca-input-select>
+                            <span class='nowrap'>
+                                <span ng-switch='$ctrl.model.userType'>
+                                    <span ng-switch-when='loyal'>
+                                        at least
+                                    </span>
+                                    <span ng-switch-when='endangered'>
+                                        at most
+                                    </span>
+                                </span>
+                                <ca-input-number name='userFrequency' model='$ctrl.model.userFrequency'></ca-input-number>
+                                <span class='ca-label'>times within</span>
+                                <ca-input-number name='userDays' model='$ctrl.model.userDays'></ca-input-number>
+                                <span class='ca-label'>days</span>
+                            </span>
+                        </div>
+
+                    </div>
+                </ca-data-row>
+            </li>
+
+            <li>
+                <ca-data-row row-label='Event'>
+                    <div class='ca-data-input ca-event-row' ng-repeat='event in $ctrl.model.events track by $index'>
+                        <span style='display: inline-block; width:4em;'>
+                            <span class='ca-label' ng-switch='$index'>
+                                <span ng-switch-when='0'>They</span>
+                                <span ng-switch-default >And</span>
+                                did
+                            </span>
+                        </span>
+                        <ca-input-select name='{{"event_" + $index}}' model='$ctrl.model.events[$index].event'
+                            options='$ctrl.getEvents($index)'
+                            blank-option='Select Event'
+                        ></ca-input-select>
+
+                        <span class='nowrap' ng-if='event.type!="event"'>
+                            <ca-input-number
+                                name='{{"comparisonValue" + $index}}'
+                                model='$ctrl.model.events[$index].comparisonValue'
+                            ></ca-input-number>
+                            <span class='ca-label' ng-if='event.type=="percentage"'>times</span>
+                            <ca-input-select name='{{"comparisonType" + $index}}' model='$ctrl.model.events[$index].comparisonType'
+                                options='$ctrl.comparisonTypes'
+                                classes='input__more-less'
+                            ></ca-input-select>
+                            <span class='ca-label'>than the previous event</span>
+                        </span>
+
+                        &nbsp;
+                        <i class='fa fa-remove fa-2x' ng-click='$ctrl.removeEvent($index)' ng-if='$ctrl.model.events.length>1'></i>
+
+                        <span ng-if='$last && event.event!="any"'>
+                            <button
+                                id="dLabel"
+                                type="button"
+                                data-toggle="dropdown"
+                                class='btn btn-link'
+                                ng-if='$ctrl.model.events[$index].event'
+                                ng-click='$ctrl.addEvent("event")'
+                                title='Add another event'
+                            >
+                                <i class='fa fa-plus-circle fa-2x'></i>
+                            </button>
+                        </span>
+                    </div>
+
+                    <div class='ca-data-input--extra' ng-if='$ctrl.model.events[0].event=="any"'>
+                        <span class='ca-label'>Their</span>
+                        <ca-input-select name='anyEventGroup' model='$ctrl.model.events[0].anyEventGroup'
+                            options='$ctrl.groups' on-change='$ctrl.anyEventGroupChanged( data )'
+                            blank-option='Select data'
+                        ></ca-input-select>
+                        <span class='nowrap'>
+                            <span class='ca-label'>is</span>
+                            <ca-input-select name='anyEventGroupOption' model='$ctrl.model.events[0].anyEventGroupOption'
+                                options='$ctrl.anyEventGroupOptions'
+                                blank-option='{{ "Select " + ( $ctrl.model.events[0].anyEventGroup || "option" ) }}'
+                            ></ca-input-select>
+                        </span>
+                    </div>
+                </ca-data-row>
+            </li>
+
+            <li>
+                <ca-data-row row-label='Frequency'>
+                    <div class='ca-data-input'>
+                        <ca-input-select name='frequencyType' model='$ctrl.model.frequencyType'
+                            options='$ctrl.frequencyTypes' blank-option=' ' classes='input__more-less'
+                        ></ca-input-select>
+                        <ca-input-number name='frequency' model='$ctrl.model.frequency'></ca-input-number>
+                        <span class='ca-label'>times within</span>
+                        <ca-input-number name='days' model='$ctrl.model.days'></ca-input-number>
+                        <span class='ca-label'>days</span>
+                    </div>
+                </ca-data-row>
+            </li>
+
+            <li>
+                <ca-data-row row-label='Grouping'>
+                    <div class='ca-data-input'>
+                        <span class='ca-label'>grouped by</span>
+                        <ca-input-select name='group' model='$ctrl.model.group' options='$ctrl.groups'
+                            blank-option='Select Grouping'
+                        ></ca-input-select>
+                    </div>
+                </ca-data-row>
+            </li>
+
+        </ul>
+    </div>
+</div>
+
+<button
+    type='submit'
+    class="btn btn-info"
+    style='margin-left: 1.5em;'
+    ng-disabled='$ctrl.form.$invalid'
+    _ng-class='{ "btn-info": !$ctrl.form.$invalid }'
+    ng-click="$ctrl.updateChart()"
+    ng-dblclick="$ctrl.debug=true"
+>Submit</button>
+
+<div ng-if='$ctrl.debug'>
+
+    <pre>
+    {{ $ctrl.model|json }}
+    </pre>
+
+    <pre>
+    {{ $ctrl.queries|json }}
+    </pre>
+</div>

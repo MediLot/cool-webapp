@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+
+
+{% block    body %}
+<div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Database</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table datatable_simple">
+                <thead>
+                    <tr>
+                        <th>Index</th>
+                        <th>Name</th>
+{#                            <th>Size</th>#}
+                        <th>file_save</th>
+                        <th>upload date</th>
+                        <th>Option</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for key,file in files.items %}
+
+                    <tr>
+
+                        <td>{{ file.index }}</td>
+                        <td>{{ file.file_name }}</td>
+{#                            <td>100kb</td>#}
+                        <td>{{ file.file_save }}</td>
+                        <td>{{ file.file_date }}</td>
+                        <td>
+                            <form method="POST" enctype="multipart/form-data" action="./database/">{% csrf_token %}
+                                <input name="file_save" value="{{ file.file_save }}" type="hidden">
+                                <input name="file_operation" value="select" type="hidden">
+                                <input value="select" type="submit">
+                            </form>
+                            <form method="POST" enctype="multipart/form-data" action="./database/">{% csrf_token %}
+                                <input name="file_save" value="{{ file.file_save }}" type="hidden">
+                                <input name="file_operation" value="delete" type="hidden">
+                                <input value="delete" type="submit">
+                            </form>
+                        </td>
+                    </tr>
+
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock body %}
+
+
+{% block    scripts %}
+<script src="https://unpkg.com/angular-ui-router@1.0.0-beta.1/release/angular-ui-router.js"></script>
+<script type="text/javascript" src="{% url 'javascript-catalog' %}"></script>
+{% endblock scripts %}

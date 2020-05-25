@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block    head %}
+{% endblock head %}
+
+{% block    body %}
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class role="tabpanel">
+        <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#tab_content2" role="tab" id="2-tab" data-toggle="tab" aria-expanded="false">Purchase Triggers</a>
+            </li>
+<!--             <li role="presentation" class=""><a href="#tab_content1" id="1-tab" role="tab" data-toggle="tab" aria-expanded="true">Next Purchase</a>
+            </li> -->
+
+            <li role="presentation" class=""><a href="#tab_content3" role="tab" id="3-tab" data-toggle="tab" aria-expanded="false">Retention of MVCs vs General Customers</a>
+            </li>
+        </ul>
+    </div>
+    <div id="myTabContent" class="tab-content">
+        <div role="tabpanel" class="tab-pane fade in" id="tab_content1" aria-labelledby="home-tab">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div id="panel_continent" class="panel panel-default panel-container" >
+                    <div class="panel-heading">
+                        <h4>1st Purchase</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div  style="height:600px" id="c1" class="chartpanel" ></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div id="panel_continent" class="panel panel-default panel-container" >
+                    <div class="panel-heading">
+                        <h4>2nd Purchase</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div id="c2" style="height:600px"  class="chartpanel" ></div>
+                        <div id="hint2" style="position: absolute; top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%);"><p>Click on 1st Purchse to show result.</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div id="panel_continent" class="panel panel-default panel-container" >
+                    <div class="panel-heading">
+                        <h4>3rd Purchase</h4>
+                    </div>
+                    <div class="panel-body" style="height:600px">
+                        <div id="c3" style="height:100%"  class="chartpanel" ></div>
+                        <div id="hint3" style="position: absolute; top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%);"><p>Click on 2nd Purchse to show result.</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div id="panel_continent" class="panel panel-default panel-container" >
+                    <div class="panel-heading">
+                        <h4>4th Purchase</h4>
+                    </div>
+                    <div class="panel-body"  style="height:600px">
+                        <div id="c4" style="height:100%"  class="chartpanel" ></div>
+                        <div id="hint4" style="position: absolute; top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%);"><p>Click on 3rd Purchse to show result.</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div id="panel_continent" class="panel panel-default panel-container" >
+                    <div class="panel-heading">
+                        <h4>5th Purchase</h4>
+                    </div>
+                    <div class="panel-body"  style="height:600px">
+                        <div id="c5" style="height:100%"  class="chartpanel" ></div>
+                        <div id="hint5" style="position: absolute; top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%);"><p>Click on 4th Purchse to show result.</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane fade active in" id="tab_content2" aria-labelledby="home-tab">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div id="panel_continent" class="panel panel-default panel-container" >
+                    <div class="panel-heading">
+                        <h4>Spend over Time</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div  style="height:600px" id="spend" class="chartpanel" ></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div id="panel_continent" class="panel panel-default panel-container" >
+                    <div class="panel-heading">
+                        <h4>Orders over Time</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div  style="height:600px" id="orders" class="chartpanel" ></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div id="panel_continent" class="panel panel-default panel-container" >
+                    <div class="panel-heading">
+                        <h4>Time between purchases</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div  style="height:600px" id="time" class="chartpanel" ></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div id="panel_continent" class="panel panel-default panel-container" >
+                    <div class="panel-heading">
+                        <h4>Revenue per Cohort</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div  style="height:600px" id="revenue" class="chartpanel" ></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane fade in" id="tab_content3" aria-labelledby="home-tab">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div id="panel_continent" class="panel panel-default panel-container" >
+                    <div class="panel-heading">
+                        <h4>General Customers</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div  style="height:600px" id="heat1" class="chartpanel" ></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div id="panel_continent" class="panel panel-default panel-container" >
+                    <div class="panel-heading">
+                        <h4>Frequently Updated</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div  style="height:600px" id="heat2" class="chartpanel" ></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div id="panel_continent" class="panel panel-default panel-container" >
+                    <div class="panel-heading">
+                        <h4>0-150 for first item</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div  style="height:600px" id="heat3" class="chartpanel" ></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div id="panel_continent" class="panel panel-default panel-container" >
+                    <div class="panel-heading">
+                        <h4>150+ for first item</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div  style="height:600px" id="heat4" class="chartpanel" ></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-6 col-xs-12">
+                <div id="panel_continent" class="panel panel-default panel-container" >
+                    <div class="panel-heading">
+                        <h4>Item Dollar Amount</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div  style="height:300px" id="heat5" class="chartpanel" ></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    var spendData = {{ spendData|safe }};
+    var spend2Data = {{ spend2Data|safe }};
+    var spend3Data = {{ spend3Data|safe }};
+
+    var heat1Data = {{ heat1Data|safe }};
+    var heat2Data = {{ heat2Data|safe }};
+    var heat3Data = {{ heat3Data|safe }};
+    var heat4Data = {{ heat4Data|safe }};
+    var heat5Data = {{ heat5Data|safe }};
+</script>
+<script src="{% static 'js/basket.js' %}">
+</script>
+{% endblock %}
+
+
+
+
+

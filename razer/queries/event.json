@@ -1,0 +1,10 @@
+{
+    "fieldValue" : {
+        "type" : "AbsoluteValue",
+        "values" : [ "inventory.shop" ],
+        "baseField" : null,
+        "baseEvent" : -1
+    },
+    "cubeField" : "event",
+    "filterType" : "Set"
+}

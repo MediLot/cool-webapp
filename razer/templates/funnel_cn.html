@@ -1,0 +1,278 @@
+{% extends 'base_cn.html' %} {% load static %} {% block head %}
+<script>
+   const CSRF_TOKEN = "{{ csrf_token }}";
+   const datasource = "{{ datasource }}";
+   
+   function redirectToSimple() {
+       console.log("d");
+       window.location.href = "/funnel";
+   }
+</script>
+<link href="{% static 'css/funnel_cn.css' %}" rel="stylesheet">
+<script src="{% static 'js/d3-funnel.js' %}"></script>
+<!--<script src="http://livejs.com/live.js"></script>-->
+<!--<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet">-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.full.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" />
+{% endblock head %} {% block body %}
+<div class="row">
+   <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="row">
+         <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+               <div class="x_title">
+               <div class='cover-div' id='loading'><img class='loading-img' src="{% static 'img/loading.svg' %}"></div>
+                  <!-- <h2>Advanced Funnel Analysis</h2> -->
+                  <h2>漏斗分析 - 进阶</h2>
+                  <ul class="nav navbar-right panel_toolbox" style="min-width:0px">
+                     <div class="btn-group" data-toggle="modal" data-target="#myModal" style="position:right" >
+                        <label class="glyphicon glyphicon-question-sign"></label>
+                     </div>
+                     <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-default" onclick="redirectToSimple()">
+                        <!-- <input type="radio" name="options" id="option2" onclick="redirectToSimple()"> Simple -->
+                        <input type="radio" name="options" id="option2" onclick="redirectToSimple()">基础 
+                        </label>
+                        <label class="btn btn-default active">
+                        <!-- <input type="radio" name="options" id="option1"> Advanced -->
+                        <input type="radio" name="options" id="option1">进阶 
+                        </label>
+                     </div>
+                  </ul>
+                  <div class="clearfix"></div>
+               </div>
+               <div class="x_content">
+                  <br>
+                  <form id="query-form" data-parsley-validate="" class=" query-form form-horizontal form-label-left" novalidate="">
+                     
+                     <!--USER SELECTION-->
+                     <!-- <div class="form-group form-section-label"> <label class="control-label section-title col-md-3 col-sm-3 col-xs-12 filter-users">User Selection<input id="filter-users-checkbox" type="checkbox" name="filter-users" value="filter-users" checked></label></div> -->
+                     <div class="form-group form-section-label"> <label class="control-label section-title col-md-3 col-sm-3 col-xs-12 filter-users">用户选择<input id="filter-users-checkbox" type="checkbox" name="filter-users" value="filter-users" checked></label></div>
+                     <div id="users-events-container" class="events-container">
+                        <div class="event-container">
+                           <div class="form-group">
+                              <!-- <label class="col-sm-offset-2 control-label birthEvent-label">Event </label> -->
+                              <label class="col-sm-offset-2 control-label birthEvent-label">事件 </label>
+                              <i class="fa fa-minus-circle event-remove" style="display:none;padding-left:7px;" aria-hidden="true"></i>
+                           </div>
+                           <div class="form-group">
+                              <div class="row">
+                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">事件：</label>
+                                 <div class="col-md-9 multi-eventFilters userSelection" >
+                                    <div class="form-group row">
+                                       <label class="control-label col-md-1 col-sm-1 col-xs-12">用户的</label>
+                                       <div class="select-multi-stage col-md-10 col-sm-10 col-xs-12">
+                                          <div class="col-md-5 col-sm-5 col-xs-11 width">
+                                             <select class="form-control select2-single data-table-yaml">
+                                             </select>
+                                          </div>
+                                          <label class="control-label float-left">是</label>
+                                          <div class="col-md-6 col-sm-6 col-xs-12 width">
+                                             <select class="form-control second-stage"> </select>
+                                          </div>
+                                          <div class='col-sm-6 col-sm-6 col-xs-12 datetimepicker' style="display: none;">
+                                             <div class='input-group date date1'>
+                                                <input type='text' class="form-control" />
+                                                <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                             </div>
+                                             <div class='input-group date date2'>
+                                                <input type='text' class="form-control" />
+                                                <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                             </div>
+                                          </div>
+                                          <div class='col-sm-6 col-sm-6 col-xs-12 intRange' style="display: none;">
+                                             <div class="col-md-5 col-sm-5 col-xs-5">
+                                                <input type="text" class="form-control event-min " placeholder="1">
+                                             </div>
+                                             <div style="float:left; line-height:33px;">-</div>
+                                             <div class="col-md-5 col-sm-5 col-xs-5">
+                                                <input type="text" class="form-control event-max " placeholder="100">
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <i class="fa fa-plus-circle eventFilter-add" style="padding-right:7px;" aria-hidden="true"></i>
+                                       <i class="fa fa-minus-circle eventFilter-remove" style="display:none;padding-right:7px;" aria-hidden="true"></i>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="form-group">
+                                 <!-- <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Frequency:</label> -->
+                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">频率：</label>
+                                 <div class="col-md-1 col-sm-1 col-xs-5">
+                                    <input type="text" required="required" class="form-control col-md-2 col-xs-2 min" placeholder="1">
+                                 </div>
+                                 <div style="float:left; line-height:33px;">-</div>
+                                 <div class="col-md-1 col-sm-1 col-xs-5">
+                                    <input type="text" required="required" class="form-control col-md-2 col-xs-2 max" placeholder="∞">
+                                 </div>
+                                 <!-- <div style="float:left; line-height:33px;">time(s)</div> -->
+                                 <div style="float:left; line-height:33px;">次</div>
+                              </div>
+                              <div class="form-group">
+                                 <!-- <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">is  </label> -->
+                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">在  </label>
+                                 <div style="width: 80px; float:left; line-height:33px;">
+                                    <select class="form-control select2-single range-select first">
+                                       <!-- <option>first</option> -->
+                                       <!-- <option>any</option> -->
+                                       <option>前</option>
+                                       <option>任意</option>
+                                    </select>
+                                 </div>
+                                 <div class="col-md-1 col-sm-1 col-xs-5">
+                                    <input type="text" required="required" class="form-control col-md-2 col-xs-2 day" placeholder="7">
+                                 </div>
+                                 <!-- <div style="float:left; line-height:33px; font-weight: 800;">day(s)</div> -->
+                                 <div style="float:left; line-height:33px; font-weight: 800;">天</div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-group users-add-event-btn">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-2">
+                           <button onclick="handleNewUserEvent()" type=button class="btn btn-primary">
+                           <i class="fa fa-plus-circle" style="padding-right:7px;" aria-hidden="true"></i>
+                           <!-- Add Event -->
+                           添加事件
+                           </button>
+                        </div>
+                     </div>
+                     <!--COHORT SELECTION-->
+                     <div class="stages">
+                         <div class="stage-group">
+                             <!-- <div class="form-group form-section-label"><label class="control-label section-title col-md-3 col-sm-3 col-xs-12">Stage Selection<i class="fa fa-plus-circle stage-add" style="padding-right:7px;" aria-hidden="true"></i><i class="fa fa-minus-circle stage-remove" style="display:none;padding-right:7px;" aria-hidden="true"></i></label></div> -->
+                             <div class="form-group form-section-label"><label class="control-label section-title col-md-3 col-sm-3 col-xs-12">阶段选择<i class="fa fa-plus-circle stage-add" style="padding-right:7px;" aria-hidden="true"></i><i class="fa fa-minus-circle stage-remove" style="display:none;padding-right:7px;" aria-hidden="true"></i></label></div>
+                             <div  class="events-container">
+                                <div class="event-container">
+                                   <div class="form-group">
+                                      <!-- <label class="col-sm-offset-2 control-label birthEvent-label">Event </label> -->
+                                      <label class="col-sm-offset-2 control-label birthEvent-label">事件 </label>
+                                      <i class="fa fa-minus-circle event-remove" style="display:none;padding-left:7px;" aria-hidden="true"></i>
+                                   </div>
+                                   <div class="form-group">
+                                      <div class="row">
+                                         <!-- <label class="control-label col-md-3 col-sm-3 col-xs-12">Event:</label> -->
+                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">事件:</label>
+                                         <div class="col-md-9 multi-eventFilters eventSelection" >
+                                            <div class="form-group row">
+                                               <!-- <label class="control-label col-md-1 col-sm-1 col-xs-12">Their</label> -->
+                                               <label class="control-label col-md-1 col-sm-1 col-xs-12">用户的</label>
+                                               <div class="select-multi-stage col-md-10 col-sm-10 col-xs-12">
+                                                  <div class="col-md-5 col-sm-5 col-xs-11 width">
+                                                     <select class="form-control select2-single data-table-yaml">
+                                                     </select>
+                                                  </div>
+                                                  <!-- <label class="control-label float-left">is</label> -->
+                                                  <label class="control-label float-left">是</label>
+                                                  <div class="col-md-6 col-sm-6 col-xs-12 width">
+                                                     <select class="form-control second-stage"> </select>
+                                                  </div>
+                                                  <div class='col-sm-6 col-sm-6 col-xs-12 datetimepicker' style="display: none;">
+                                                     <div class='input-group date date1'>
+                                                        <input type='text' class="form-control" />
+                                                        <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                                     </div>
+                                                     <div class='input-group date date2'>
+                                                        <input type='text' class="form-control" />
+                                                        <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                                     </div>
+                                                  </div>
+                                                  <div class='col-sm-6 col-sm-6 col-xs-12 intRange' style="display: none;">
+                                                     <div class="col-md-5 col-sm-5 col-xs-5">
+                                                        <input type="text" class="form-control event-min " placeholder="1">
+                                                     </div>
+                                                     <div style="float:left; line-height:33px;">-</div>
+                                                     <div class="col-md-5 col-sm-5 col-xs-5">
+                                                        <input type="text" class="form-control event-max " placeholder="100">
+                                                     </div>
+                                                  </div>
+                                               </div>
+                                               <i class="fa fa-plus-circle eventFilter-add" style="padding-right:7px;" aria-hidden="true"></i>
+                                               <i class="fa fa-minus-circle eventFilter-remove" style="display:none;padding-right:7px;" aria-hidden="true"></i>
+                                            </div>
+                                         </div>
+                                      </div>
+                                      <div class="form-group">
+                                         <!-- <label class="control-label col-md-3 col-sm-3 col-xs-12" for="min">Frequency:</label> -->
+                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="min">频率：</label>
+                                         <div class="col-md-1 col-sm-1 col-xs-5">
+                                            <input type="text" name="min" required="required" class="form-control col-md-2 col-xs-2 min" placeholder="1">
+                                         </div>
+                                         <div style="float:left; line-height:33px;">-</div>
+                                         <div class="col-md-1 col-sm-1 col-xs-5">
+                                            <input type="text" name="max" required="required" class="form-control col-md-2 col-xs-2 max" placeholder="∞">
+                                         </div>
+                                         <!-- <div style="float:left; line-height:33px;">time(s)</div> -->
+                                         <div style="float:left; line-height:33px;">次</div>
+                                      </div>
+                                   </div>
+                                </div>
+                             </div>
+                             <div class="form-group add-event-btn">
+                                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-2">
+                                   <button type=button class="btn btn-primary add-btn">
+                                   <i class="fa fa-plus-circle" style="padding-right:7px;" aria-hidden="true"></i>
+                                   <!-- Add Event -->
+                                    添加事件 
+                                   </button>
+                                </div>
+                             </div>
+                         </div>
+                     </div>
+
+                     <div class="ln_solid"></div>
+                     <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-2">
+                           <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+                           <!-- <button class="btn btn-danger" type="reset" onClick="window.location.reload();return false;" >Reset</button> -->
+                           <button type="submit" class="btn btn-primary">提交</button>
+                           <button class="btn btn-danger" type="reset" onClick="window.location.reload();return false;" >重置</button>
+                        </div>
+                     </div>
+                  </form>
+               </div>
+               
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<div>
+    <div id="funnel" style="height:0px"></div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+   <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">漏洞分析进阶版教程</h4>
+         </div>
+         <div class="modal-body">
+            <img src="../static/img/advanced_funnel_tutorial_cn.png" style="width:520px;height:520px;">
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+         </div>
+      </div>
+   </div>
+</div>
+{% endblock body %}
+{% block    scripts %}
+<script>
+   'use strict';
+   var djangoData = {{ djangoData | default:"{}" | safe }};
+</script>
+<script src="{% static 'js/funnel_cn.js' %}"></script>
+{% endblock scripts %}

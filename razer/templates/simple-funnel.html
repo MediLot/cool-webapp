@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+{% block    head %}
+
+<script>
+    const CSRF_TOKEN = "{{ csrf_token }}";
+    const datasource = "{{ datasource }}";
+    function redirectToAdvanced() {
+        console.log("d");
+        window.location.href = "/{{ LANGUAGE_CODE }}/funnel/advance";
+    }
+</script>
+
+<script type="text/javascript" src="{% url 'javascript-catalog' %}"></script>
+<link href="{% static 'css/simple-funnel.css' %}" rel="stylesheet">
+<script src="{% static 'js/d3-funnel.js' %}"></script>
+<script src="{% static 'js/simple-funnel.js' %}"></script>
+
+{% endblock head %}
+
+{% block    body %}
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>{% trans "Funnel Analysis" %}</h2>
+                        <ul class="nav navbar-right panel_toolbox" style="min-width:0px">
+                            <div class="btn-group" data-toggle="modal" data-target="#myModal" style="position:right">
+                                <label class="glyphicon glyphicon-question-sign"></label>
+                            </div>
+                            <div class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-default active">
+                                    <input type="radio" name="options" id="option2"> {% trans "Simple" %}
+                                </label>
+                                <label class="btn btn-default" onclick="redirectToAdvanced()">
+                                    <input type="radio" name="options" id="option1" onclick="redirectToAdvanced()"> {% trans "Advanced" %}
+                                </label>
+                            </div>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="col-md-8 col-sm-12 col-xs-12">
+                            <div id="drag-boxes">
+							
+                                <div class="row">
+                                    <div class="col-md-5 col-xs-12">
+                                        <ul id="sortable0" class="connectedSortable">
+                                            <div class="list-label">{% trans "Available Events" %}</div>
+                                            {% for event in events %}
+                                            <li class="draggable-event ui-state-default" data-label='{{ event }}'>
+                                                <div class="event-title">{{ event }}</div>
+                                                <div class="event-filter-button"><i class="fa fa-filter" aria-hidden="true"></i></div>
+                                                <div class="event-settings">
+                                                    <div class="event-text-fields">
+                                                        <input class="minTrigger number-of-times-input" placeholder="0" onkeypress='return event.charCode >= 48 && event.charCode <= 57' type="text"> - 
+                                                        <input class="maxTrigger number-of-times-input" placeholder="∞" onkeypress='return event.charCode >= 48 && event.charCode <= 57' type="text"> times
+                                                    </div>
+                                                    <div class="event-clear-button"><i class="fa fa-times" aria-hidden="true"></i></div>
+                                                </div>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+
+                                    <div class="col-md-5 col-sm-11 col-xs-11">
+                                        <div id="sortables-container">
+                                            <ul id="sortable1" class="connectedSortable">
+                                                <div class="list-label">{% trans "Stage" %} 1</div>
+                                                <div class="list-placeholder">{% trans "(Any Event)" %}</div>
+                                            </ul>
+                                            <div class="list-separator"> <i class="fa fa-arrow-down" aria-hidden="true"></i> </div>
+                                            <ul id="sortable2" class="connectedSortable">
+                                                <div class="list-label">{% trans "Stage" %} 2</div>
+                                                <div class="list-placeholder">{% trans "(Any Event)" %}</div>
+                                            </ul>
+                                            <div class="list-separator"> <i class="fa fa-arrow-down" aria-hidden="true"></i> </div>
+                                            <ul id="sortable3" class="connectedSortable">
+                                                <div class="list-label">{% trans "Stage" %} 3</div>
+                                                <div class="list-placeholder">{% trans "(Any Event)" %}</div>
+                                            </ul>
+                                            <div class="list-separator"> <i class="fa fa-arrow-down" aria-hidden="true"></i> </div>
+                                            <ul id="sortable4" class="connectedSortable">
+                                                <div class="list-label">{% trans "Stage" %} 4</div>
+                                                <div class="list-placeholder">{% trans "(Any Event)" %}</div>
+                                                <div id="sortables-remove-btn" class="list-delete-btn" onClick="removeSortable()"> <i class="fa fa-minus-circle" aria-hidden="true"></i> </div>
+                                            </ul>
+                                        </div>
+                                        <div id="sortables-add-btn" class="list-separator add-icon" onClick="addSortable()"> <i class="fa fa-plus-circle" aria-hidden="true"></i> </div>
+                                    </div>
+
+
+                                    <div class="col-md-2 col-xs-12 button-col">
+                                        <button onclick="location.reload()" class="btn btn-danger">{% trans "Reset" %}</button><br>
+                                        <button onclick="updateChart()" class="btn btn-info">{% trans "Submit" %}</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-sm-12 col-xs-12">
+                            <div id="funnel-container">
+                                <div id="echarts-funnel"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">     
+      <!-- Modal content-->
+        <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">{% trans "Funnel Tutorial" %}</h4>
+        </div>
+        <div class="modal-body">
+          <img src="/static/img/funnel_tutorial.png" style="width:580px;height:350px;">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">{% trans "Close" %}</button>
+        </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

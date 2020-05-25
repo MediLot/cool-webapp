@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block    head %}
+<link href="{% static '/css/upload.css' %}" rel="stylesheet">
+{% endblock head %}
+
+{% block    body %}
+
+{#<form id='uploadForm' action='./upload/' method='post' enctype='multipart/form-data'>#}
+{#    {% csrf_token %}#}
+{#    <input type="file" name='file' id="fileElem" accept='.csv' class="hidden">#}
+{#    <div ng-app='app'>#}
+{#        <ui-view></ui-view>#}
+{#    </div>#}
+{#</form>#}
+<h1 class="panel-title">Upload</h1>
+
+<div class="col-md-12">
+    <label>Step one: upload your file</label>
+    <form method="POST" enctype="multipart/form-data" action="./upload/">{% csrf_token %}
+        <input type="file" name='csv_file' id="csv_file" accept='.csv'/>
+        <div class='input-label'>Name it as</div>
+        <input type="text" name="name">
+        <button class="btn btn-primary-outline radius size-S" type="submit">submit</button>
+    </form>
+</div>
+
+{% endblock body %}
+
+
+{% block    scripts %}
+<script src="https://unpkg.com/angular-ui-router@1.0.0-beta.1/release/angular-ui-router.js"></script>
+<script type="text/javascript" src="{% url 'javascript-catalog' %}"></script>
+{#<script src='{% static "/components/razer/uploadData/app.js" %}'></script>#}
+{% endblock scripts %}
