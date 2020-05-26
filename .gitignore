@@ -83,7 +83,7 @@ ENV/
 # mypy
 .mypy_cache/
 
-upload/
+upload/*
 #cohana/
 cohana-1/
 razer/data/example_event.dat
