@@ -8,8 +8,17 @@ For more information, you can refer to the [paper](https://www.comp.nus.edu.sg/~
 
 Please pre-install the docker environment at first.
 
-```
+```sh
 sh start.sh
+```
+
+`start.sh` will build and run the needed docker containers
+```sh
+# check docker container status
+docker ps -a
+
+# stop the demo dockers
+docker stop <container-id>
 ```
 
 go to `http://127.0.0.1:8201/`
