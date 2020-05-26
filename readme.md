@@ -27,6 +27,11 @@ table).
 
 5. Example file can be found [here](example-data/example.csv).
 
+### Login
+
+User ID: root
+Password: zaq12wsx
+
 
 ### Scripts:
 
