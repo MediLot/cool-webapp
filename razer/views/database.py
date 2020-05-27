@@ -32,8 +32,10 @@ class Database(View):
         if file_operation == "delete":
             if csv_file.objects.filter(file_save=file_save).exists():
                 csv_file.objects.filter(file_save=file_save).delete()
-                shutil.rmtree(data_path + file_save)
-                os.remove(upload_path + file_save + ".csv")
+                if os.path.exists(data_path + file_save):
+                    shutil.rmtree(data_path + file_save)
+                if os.path.exists(upload_path + file_save + ".csv"):
+                    os.remove(upload_path + file_save + ".csv")
 
             return redirect("/database")
         else:
