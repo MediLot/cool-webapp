@@ -3,9 +3,21 @@
 {% load i18n %}
 
 {% block    body %}
-<h1 class="panel-title">Figure Design</h1>
-    <div class="col-md-12">
-        <label>Step three: Customize your metrics</label>
+<style>
+    .submit {
+        color: white;
+        padding: 8px;
+        background-color: rgb(16, 89, 150);
+        cursor: pointer;
+        display: inline-block;
+        font-size: 8pt;
+        height: 30px;
+        font-weight:bold;
+    }
+</style>
+<div class="col-md-12">
+    <h2><b>{% trans "Figure Design" %}</b></h2><br />
+        <h2>Customise your metrics</h2>
         <form method="POST" enctype="multipart/form-data" action="./figure_design/">{% csrf_token %}
             <div>
                 <div class='input-label'>What metric do you want to get</div>
@@ -17,6 +29,7 @@
                     <option value='RANGE'>RANGE</option>
                 </select>
             </div>
+            <br/>
             <div>
                 <div class='input-label'>It will take action on</div>
                 <select class="form-control select" name="tableFieldName">
@@ -25,11 +38,12 @@
                 {% endfor %}
                 </select>
             </div>
+            <br/>
             <div>
                 <div class='input-label'>Name it as</div>
                 <input type="text" name="name">
             </div>
-            <input type="submit">
+            <br/><input type="submit" class="submit">
         </form>
     </div>
 {% endblock body %}
