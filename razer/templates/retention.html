@@ -21,12 +21,15 @@ function redirectToSimple() {
 {% endblock head %}
 
 {% block    body %}
+<div class="col-md-12">
+    <h2><b>{% trans "Cohort Analysis" %}</b></h2><br />
+        <h2>Customise features for analysis</h2>
+</div>
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
         <div class='cover-div' id='loading'><img class='loading-img' src="{% static 'img/loading.svg' %}"></div>
             <div class="x_title">
-                <h2>{% trans "Cohort Analysis" %}</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <div class="btn-group" data-toggle="modal" data-target="#myModal">
                         <label class="glyphicon glyphicon-question-sign"></label>

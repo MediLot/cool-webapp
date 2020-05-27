@@ -5,9 +5,12 @@
 
 
 {% block    body %}
-    <div>Figures</div>
+<div class="col-md-12">
+    <h2><b>{% trans "Figures" %}</b></h2><br />
+        <h2>Visualisation rendered based on analysis</h2>
+</div>
 <div class="page-content-wrap">
-    <div class="row">
+    <div class="row"></div>
         <div class="col-md-12">
 
             {% for key,value in figures.items %}

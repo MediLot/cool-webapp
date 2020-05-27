@@ -11,18 +11,30 @@
 {#        <ui-view></ui-view>#}
 {#    </div>#}
 {#</form>#}
-
+<style>
+    .submit {
+        color: white;
+        padding: 8px;
+        background-color: rgb(16, 89, 150);
+        cursor: pointer;
+        display: inline-block;
+        font-size: 8pt;
+        height: 30px;
+        font-weight:bold;
+    }
+</style>
 <div class="col-md-12">
-        <label>Step one: upload your file</label>
+    <h2><b>{% trans "Label" %}</b></h2><br />
+        <h2>Label columns in dataset</h2>
         <form method="POST" enctype="multipart/form-data" action="./column_list/">{% csrf_token %}
 {#            <input type="text" name=" name">#}
             {% for key,data in column_type.items %}
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Name: <span> {{ key }}</span></h3>
+                        <h3 class="panel-title">Column: <span> {{ key }}</span></h3>
                     </div>
                     <div class="panel-body">
-                        They represent
+                        represents
                         <select class="form-control select" name="{{key}}">
                             {% for op,value in options.items %}
                                 {% if data == op %}
@@ -36,7 +48,11 @@
                     </div>
                 </div>
             {% endfor %}
-            <input type="submit">
+            <div style ="display: flex; justify-content: flex-end">
+            <div>
+                <input type="submit" class = "submit">
+            </div>
+            </div>
         </form>
     </div>
 {% endblock body %}
