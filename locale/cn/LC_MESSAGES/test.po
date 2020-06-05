@@ -18,357 +18,357 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: razer/static/components/razer/uploadData/step1.html:3
+#: dashboard/static/components/razer/uploadData/step1.html:3
 msgid "Step one: Choose your upload file"
 msgstr "第一步: 上传文件"
 
-#: razer/static/components/razer/uploadData/step1.html:6
+#: dashboard/static/components/razer/uploadData/step1.html:6
 msgid "Your latest upload at"
 msgstr "您上次上传的是"
 
-#: razer/static/components/razer/uploadData/step1.html:13
+#: dashboard/static/components/razer/uploadData/step1.html:13
 msgid "Click here to choose your file"
 msgstr "点击选择文件"
 
-#: razer/static/components/razer/uploadData/step1.html:26
-#: razer/static/components/razer/uploadData/step2.html:53
+#: dashboard/static/components/razer/uploadData/step1.html:26
+#: dashboard/static/components/razer/uploadData/step2.html:53
 msgid "Next"
 msgstr "下一步"
 
-#: razer/static/components/razer/uploadData/step2.html:2
+#: dashboard/static/components/razer/uploadData/step2.html:2
 msgid "Step two: Tell us more about your dataset"
 msgstr "第二步: 和我们介绍下您的数据"
 
-#: razer/static/components/razer/uploadData/step2.html:9
+#: dashboard/static/components/razer/uploadData/step2.html:9
 msgid "Name"
 msgstr "列名"
 
-#: razer/static/components/razer/uploadData/step2.html:13
+#: dashboard/static/components/razer/uploadData/step2.html:13
 msgid "They represent"
 msgstr "它代表了"
 
-#: razer/static/components/razer/uploadData/step2.html:39
+#: dashboard/static/components/razer/uploadData/step2.html:39
 msgid "Select type"
 msgstr "请选择类型"
 
-#: razer/static/components/razer/uploadData/step2.html:62
+#: dashboard/static/components/razer/uploadData/step2.html:62
 msgid "A Complete Guide to Choosing the Correct Option"
 msgstr "类型选择说明书"
 
-#: razer/static/components/razer/uploadData/step2.html:64
+#: dashboard/static/components/razer/uploadData/step2.html:64
 #, fuzzy
 #| msgid "Event, Time and User ID is mandatory and can only be chosen once"
 msgid "Event, Time and User ID is mandatory and can only be chosen once"
 msgstr "事件、事件和用户ID是必须且唯一的"
 
-#: razer/static/components/razer/uploadData/step2.html:68
-#: razer/templates/retention.html:361 razer/templates/simple-funnel.html:131
-#: razer/templates/simple-retention.html:147
+#: dashboard/static/components/razer/uploadData/step2.html:68
+#: dashboard/templates/retention.html:361 dashboard/templates/simple-funnel.html:131
+#: dashboard/templates/simple-retention.html:147
 msgid "Close"
 msgstr "关闭"
 
-#: razer/static/components/razer/uploadData/step3.html:3
+#: dashboard/static/components/razer/uploadData/step3.html:3
 msgid "Step three: Customize your metrics"
 msgstr "第三步: 自定义计算方式"
 
-#: razer/static/components/razer/uploadData/step3.html:17
+#: dashboard/static/components/razer/uploadData/step3.html:17
 msgid "What metric do you want to get"
 msgstr "您想用什么计算方式呢？"
 
-#: razer/static/components/razer/uploadData/step3.html:19
+#: dashboard/static/components/razer/uploadData/step3.html:19
 msgid "COUNT"
 msgstr "计数"
 
-#: razer/static/components/razer/uploadData/step3.html:20
+#: dashboard/static/components/razer/uploadData/step3.html:20
 msgid "SUM"
 msgstr "求和"
 
-#: razer/static/components/razer/uploadData/step3.html:21
+#: dashboard/static/components/razer/uploadData/step3.html:21
 msgid "RETENTION"
 msgstr "忠诚度"
 
-#: razer/static/components/razer/uploadData/step3.html:26
+#: dashboard/static/components/razer/uploadData/step3.html:26
 msgid "It will take action on"
 msgstr "在哪列计算呢？"
 
-#: razer/static/components/razer/uploadData/step3.html:36
+#: dashboard/static/components/razer/uploadData/step3.html:36
 msgid "Name it as"
 msgstr "我们会把它称作"
 
-#: razer/static/components/razer/uploadData/step3.html:52
-#: razer/templates/base.html:63
+#: dashboard/static/components/razer/uploadData/step3.html:52
+#: dashboard/templates/base.html:63
 msgid "Upload"
 msgstr "上传"
 
-#: razer/templates/base.html:64
+#: dashboard/templates/base.html:64
 msgid "Dashboard"
 msgstr "面板"
 
-#: razer/templates/base.html:65 razer/templates/retention.html:28
-#: razer/templates/simple-retention.html:26
+#: dashboard/templates/base.html:65 dashboard/templates/retention.html:28
+#: dashboard/templates/simple-retention.html:26
 msgid "Cohort Analysis"
 msgstr "族群分析"
 
-#: razer/templates/base.html:66
+#: dashboard/templates/base.html:66
 msgid "Funnel"
 msgstr "漏斗分析"
 
-#: razer/templates/base.html:67
+#: dashboard/templates/base.html:67
 msgid "MVC Analysis"
 msgstr "重点客户分析"
 
-#: razer/templates/base.html:68
+#: dashboard/templates/base.html:68
 msgid "Basket Analysis"
 msgstr ""
 
-#: razer/templates/base.html:111
+#: dashboard/templates/base.html:111
 msgid "Presented by NUS."
 msgstr "NUS提供"
 
-#: razer/templates/dashboard.html:11
+#: dashboard/templates/dashboard.html:11
 msgid "Admission Person-time"
 msgstr "总入院人次"
 
-#: razer/templates/dashboard.html:17
+#: dashboard/templates/dashboard.html:17
 msgid "Total Admission Patients"
 msgstr "总入院人数"
 
-#: razer/templates/dashboard.html:23
+#: dashboard/templates/dashboard.html:23
 msgid "Re-admission Rate"
 msgstr "重入院率"
 
-#: razer/templates/dashboard.html:29
+#: dashboard/templates/dashboard.html:29
 msgid "Daily Visted Users"
 msgstr "当日访问人数"
 
-#: razer/templates/dashboard.html:40
+#: dashboard/templates/dashboard.html:40
 msgid "Medicine Consumption over Time"
 msgstr "药物消耗"
 
-#: razer/templates/dashboard.html:51
+#: dashboard/templates/dashboard.html:51
 msgid "Disease Diagnosed over Time"
 msgstr "诊断病情"
 
-#: razer/templates/dashboard.html:62
+#: dashboard/templates/dashboard.html:62
 msgid "Daily Admitted Patients"
 msgstr "每日访问病人"
 
-#: razer/templates/dashboard.html:73
+#: dashboard/templates/dashboard.html:73
 msgid "Admission of Male vs Female in 2012"
 msgstr "男女入院比例"
 
-#: razer/templates/dashboard.html:83
+#: dashboard/templates/dashboard.html:83
 msgid "Patient Citizenship Distribution"
 msgstr "病人国籍分布"
 
-#: razer/templates/dashboard.html:94
+#: dashboard/templates/dashboard.html:94
 msgid "Composition by Birthyear"
 msgstr "病人年龄分布"
 
-#: razer/templates/dashboard.html:105
+#: dashboard/templates/dashboard.html:105
 msgid "Last Loaded Cohort Analysis Chart"
 msgstr "最近查询的族群分析"
 
-#: razer/templates/retention.html:35 razer/templates/simple-funnel.html:38
-#: razer/templates/simple-retention.html:34
+#: dashboard/templates/retention.html:35 dashboard/templates/simple-funnel.html:38
+#: dashboard/templates/simple-retention.html:34
 msgid "Simple"
 msgstr "基础"
 
-#: razer/templates/retention.html:38 razer/templates/retention.html:289
-#: razer/templates/simple-funnel.html:41
-#: razer/templates/simple-retention.html:37
+#: dashboard/templates/retention.html:38 dashboard/templates/retention.html:289
+#: dashboard/templates/simple-funnel.html:41
+#: dashboard/templates/simple-retention.html:37
 msgid "Advanced"
 msgstr "进阶"
 
-#: razer/templates/retention.html:49
+#: dashboard/templates/retention.html:49
 msgid "Cohort Metric"
 msgstr "族群计算"
 
-#: razer/templates/retention.html:51
+#: dashboard/templates/retention.html:51
 msgid "Measure"
 msgstr "指标名称"
 
-#: razer/templates/retention.html:58
+#: dashboard/templates/retention.html:58
 msgid "Over"
 msgstr "指标过滤条件"
 
-#: razer/templates/retention.html:98
+#: dashboard/templates/retention.html:98
 msgid "Age Range"
 msgstr "年龄范围"
 
-#: razer/templates/retention.html:106
+#: dashboard/templates/retention.html:106
 msgid "by"
 msgstr "单位"
 
-#: razer/templates/retention.html:109
+#: dashboard/templates/retention.html:109
 msgid "days"
 msgstr "天"
 
-#: razer/templates/retention.html:110
+#: dashboard/templates/retention.html:110
 msgid "weeks"
 msgstr "周"
 
-#: razer/templates/retention.html:111
+#: dashboard/templates/retention.html:111
 msgid "months"
 msgstr "月"
 
-#: razer/templates/retention.html:112
+#: dashboard/templates/retention.html:112
 msgid "years"
 msgstr "年"
 
-#: razer/templates/retention.html:113
+#: dashboard/templates/retention.html:113
 msgid "events"
 msgstr "事件"
 
-#: razer/templates/retention.html:118
+#: dashboard/templates/retention.html:118
 msgid "Aged by"
 msgstr "基准条件"
 
-#: razer/templates/retention.html:122
+#: dashboard/templates/retention.html:122
 msgid "occurences on"
 msgstr "次出现于列"
 
-#: razer/templates/retention.html:132
+#: dashboard/templates/retention.html:132
 msgid "User Selection"
 msgstr "用户选择"
 
-#: razer/templates/retention.html:136 razer/templates/retention.html:224
+#: dashboard/templates/retention.html:136 dashboard/templates/retention.html:224
 msgid "Event"
 msgstr "事件"
 
-#: razer/templates/retention.html:141 razer/templates/retention.html:229
+#: dashboard/templates/retention.html:141 dashboard/templates/retention.html:229
 msgid "Event:"
 msgstr "事件过滤:"
 
-#: razer/templates/retention.html:144 razer/templates/retention.html:232
+#: dashboard/templates/retention.html:144 dashboard/templates/retention.html:232
 msgid "Their"
 msgstr "用户的"
 
-#: razer/templates/retention.html:150 razer/templates/retention.html:238
+#: dashboard/templates/retention.html:150 dashboard/templates/retention.html:238
 msgid "is"
 msgstr "是"
 
-#: razer/templates/retention.html:184 razer/templates/retention.html:272
+#: dashboard/templates/retention.html:184 dashboard/templates/retention.html:272
 msgid "Frequency"
 msgstr "频率"
 
-#: razer/templates/retention.html:192 razer/templates/retention.html:280
+#: dashboard/templates/retention.html:192 dashboard/templates/retention.html:280
 msgid "time(s)"
 msgstr "次"
 
-#: razer/templates/retention.html:195
+#: dashboard/templates/retention.html:195
 msgid "In the"
 msgstr "在"
 
-#: razer/templates/retention.html:198
+#: dashboard/templates/retention.html:198
 msgid "first"
 msgstr "前"
 
-#: razer/templates/retention.html:199
+#: dashboard/templates/retention.html:199
 msgid "any"
 msgstr "任意"
 
-#: razer/templates/retention.html:205
+#: dashboard/templates/retention.html:205
 msgid "day(s)"
 msgstr "天"
 
-#: razer/templates/retention.html:214 razer/templates/retention.html:326
+#: dashboard/templates/retention.html:214 dashboard/templates/retention.html:326
 msgid "Add Event"
 msgstr "添加事件"
 
-#: razer/templates/retention.html:219
+#: dashboard/templates/retention.html:219
 msgid "Birth Criteria"
 msgstr "用户起始标准"
 
-#: razer/templates/retention.html:283
+#: dashboard/templates/retention.html:283
 msgid "Group by"
 msgstr "分类依据"
 
-#: razer/templates/retention.html:297
+#: dashboard/templates/retention.html:297
 msgid "Min"
 msgstr "起始"
 
-#: razer/templates/retention.html:301
+#: dashboard/templates/retention.html:301
 msgid "Max"
 msgstr "结束"
 
-#: razer/templates/retention.html:307
+#: dashboard/templates/retention.html:307
 msgid "Interval"
 msgstr "间隔"
 
-#: razer/templates/retention.html:311
+#: dashboard/templates/retention.html:311
 msgid "Log Scale"
 msgstr "指数单位"
 
-#: razer/templates/retention.html:333 razer/templates/simple-funnel.html:100
-#: razer/templates/simple-retention.html:118
+#: dashboard/templates/retention.html:333 dashboard/templates/simple-funnel.html:100
+#: dashboard/templates/simple-retention.html:118
 msgid "Submit"
 msgstr "提交"
 
-#: razer/templates/retention.html:334 razer/templates/simple-funnel.html:99
-#: razer/templates/simple-retention.html:117
+#: dashboard/templates/retention.html:334 dashboard/templates/simple-funnel.html:99
+#: dashboard/templates/simple-retention.html:117
 msgid "Reset"
 msgstr "重置"
 
-#: razer/templates/retention.html:354
+#: dashboard/templates/retention.html:354
 msgid "Advanced Model Tutorial"
 msgstr "进阶族群分析教程"
 
-#: razer/templates/retention.html:357
+#: dashboard/templates/retention.html:357
 msgid "Advanced model allows you to customize your very own cohort analysis"
 msgstr "用户可通过进阶族群分析教程创建自定义用户群以及族群分析"
 
-#: razer/templates/simple-funnel.html:31
+#: dashboard/templates/simple-funnel.html:31
 msgid "Funnel Analysis"
 msgstr "漏斗分析"
 
-#: razer/templates/simple-funnel.html:54
-#: razer/templates/simple-retention.html:50
+#: dashboard/templates/simple-funnel.html:54
+#: dashboard/templates/simple-retention.html:50
 msgid "Available Events"
 msgstr "可选事件"
 
-#: razer/templates/simple-funnel.html:74 razer/templates/simple-funnel.html:79
-#: razer/templates/simple-funnel.html:84 razer/templates/simple-funnel.html:89
+#: dashboard/templates/simple-funnel.html:74 dashboard/templates/simple-funnel.html:79
+#: dashboard/templates/simple-funnel.html:84 dashboard/templates/simple-funnel.html:89
 msgid "Stage"
 msgstr "阶段"
 
-#: razer/templates/simple-funnel.html:75 razer/templates/simple-funnel.html:80
-#: razer/templates/simple-funnel.html:85 razer/templates/simple-funnel.html:90
-#: razer/templates/simple-retention.html:61
+#: dashboard/templates/simple-funnel.html:75 dashboard/templates/simple-funnel.html:80
+#: dashboard/templates/simple-funnel.html:85 dashboard/templates/simple-funnel.html:90
+#: dashboard/templates/simple-retention.html:61
 msgid "(Any Event)"
 msgstr "(任意事件)"
 
-#: razer/templates/simple-funnel.html:125
+#: dashboard/templates/simple-funnel.html:125
 msgid "Funnel Tutorial"
 msgstr "漏斗分析教程"
 
-#: razer/templates/simple-retention.html:60
+#: dashboard/templates/simple-retention.html:60
 msgid "User Did"
 msgstr "过滤事件"
 
-#: razer/templates/simple-retention.html:65
+#: dashboard/templates/simple-retention.html:65
 msgid "Group By"
 msgstr "分类依据"
 
-#: razer/templates/simple-retention.html:87
+#: dashboard/templates/simple-retention.html:87
 msgid "Within"
 msgstr "时间范围"
 
-#: razer/templates/simple-retention.html:89
-#: razer/templates/simple-retention.html:92
-#: razer/templates/simple-retention.html:95
+#: dashboard/templates/simple-retention.html:89
+#: dashboard/templates/simple-retention.html:92
+#: dashboard/templates/simple-retention.html:95
 msgid "Days"
 msgstr "天"
 
-#: razer/templates/simple-retention.html:100
+#: dashboard/templates/simple-retention.html:100
 msgid "Measure by"
 msgstr "度量标准"
 
-#: razer/templates/simple-retention.html:139
+#: dashboard/templates/simple-retention.html:139
 msgid "Simple Model Tutorial"
 msgstr "基础族群分析教程"
 
-#: razer/templates/simple-retention.html:142
+#: dashboard/templates/simple-retention.html:142
 msgid ""
 "Simple model allows you to access to cohort analysis just with a few clicks"
 msgstr "用户可利用基础模式实现简单快速的族群分析"

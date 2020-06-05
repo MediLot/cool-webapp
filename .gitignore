@@ -1,4 +1,4 @@
-razer/data/last_loaded.dat
+dashboard/data/last_loaded.dat
 
 .idea/
 *.swp
@@ -86,6 +86,6 @@ ENV/
 upload/*
 #cohana/
 cohana-1/
-razer/data/example_event.dat
+dashboard/data/example_event.dat
 
 dim.db

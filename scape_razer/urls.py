@@ -19,18 +19,18 @@ from django.contrib import admin
 from django.conf.urls.i18n              import i18n_patterns
 from django.views.i18n                  import javascript_catalog
 from django.contrib.auth.decorators     import login_required
-from razer import views
+from dashboard import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    # url(r'^', include('razer.urls')),
+    # url(r'^', include('dashboard.urls')),
     url(r'^', include('favicon.urls')),
     url(r'^api/v1',                 login_required(views.Api.as_view()), name='api'),
     url(r'^dim/v1',                 login_required(views.Dim.as_view()), name='dim'),
 ]
 
 urlpatterns += i18n_patterns(
-    url(r'^', include('razer.urls')),
+    url(r'^', include('dashboard.urls')),
 )
 
 js_info_dict = {

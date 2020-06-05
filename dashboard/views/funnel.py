@@ -17,7 +17,7 @@ class Funnel( View ):
         file = dirs[0]
         events = []
         try:
-            with open(('razer/data/'+file+'_event.dat')) as data_file:
+            with open(('dashboard/data/'+file+'_event.dat')) as data_file:
                 data = json.load(data_file)
                 events = data['EVENTS']
         except Exception as e:

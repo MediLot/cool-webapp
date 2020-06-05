@@ -18,179 +18,179 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: razer/static/components/razer/uploadData/app.js:40
+#: dashboard/static/components/razer/uploadData/app.js:40
 msgid "User ID"
 msgstr "用户ID"
 
-#: razer/static/components/razer/uploadData/app.js:46
-#: razer/static/js/retention.js:44 razer/static/js/retention.js:142
-#: razer/static/js/simple-funnel.js:82 razer/static/js/simple-funnel.js:83
-#: razer/static/js/simple-funnel.js:84 razer/static/js/simple-funnel.js:85
-#: razer/static/js/simple-funnel.js:86
+#: dashboard/static/components/razer/uploadData/app.js:46
+#: dashboard/static/js/retention.js:44 dashboard/static/js/retention.js:142
+#: dashboard/static/js/simple-funnel.js:82 dashboard/static/js/simple-funnel.js:83
+#: dashboard/static/js/simple-funnel.js:84 dashboard/static/js/simple-funnel.js:85
+#: dashboard/static/js/simple-funnel.js:86
 msgid "Event"
 msgstr "事件 "
 
-#: razer/static/components/razer/uploadData/app.js:52
+#: dashboard/static/components/razer/uploadData/app.js:52
 msgid "Event Related"
 msgstr "事件相关(字符串类型)"
 
-#: razer/static/components/razer/uploadData/app.js:58
+#: dashboard/static/components/razer/uploadData/app.js:58
 msgid "Time"
 msgstr "时间"
 
-#: razer/static/components/razer/uploadData/app.js:64
+#: dashboard/static/components/razer/uploadData/app.js:64
 msgid "Value"
 msgstr "数字"
 
-#: razer/static/js/dashboard.js:36 razer/static/js/retention.js:853
-#: razer/static/js/retention.js:1073
+#: dashboard/static/js/dashboard.js:36 dashboard/static/js/retention.js:853
+#: dashboard/static/js/retention.js:1073
 msgid "Restore"
 msgstr "还原"
 
-#: razer/static/js/dashboard.js:39 razer/static/js/retention.js:856
-#: razer/static/js/retention.js:1076
+#: dashboard/static/js/dashboard.js:39 dashboard/static/js/retention.js:856
+#: dashboard/static/js/retention.js:1076
 msgid "Save"
 msgstr "保存"
 
-#: razer/static/js/dashboard.js:43 razer/static/js/retention.js:859
-#: razer/static/js/retention.js:1079
+#: dashboard/static/js/dashboard.js:43 dashboard/static/js/retention.js:859
+#: dashboard/static/js/retention.js:1079
 msgid "Dataview"
 msgstr "显示数据"
 
-#: razer/static/js/dashboard.js:44
+#: dashboard/static/js/dashboard.js:44
 msgid "DataView"
 msgstr "数据"
 
-#: razer/static/js/dashboard.js:44
+#: dashboard/static/js/dashboard.js:44
 msgid "Close"
 msgstr "关闭"
 
-#: razer/static/js/dashboard.js:44
+#: dashboard/static/js/dashboard.js:44
 msgid "Refresh"
 msgstr "刷新"
 
-#: razer/static/js/dashboard.js:49
+#: dashboard/static/js/dashboard.js:49
 msgid "none"
 msgstr "无"
 
-#: razer/static/js/dashboard.js:51
+#: dashboard/static/js/dashboard.js:51
 msgid "Zoom"
 msgstr "缩放"
 
-#: razer/static/js/dashboard.js:52
+#: dashboard/static/js/dashboard.js:52
 msgid "Back"
 msgstr "返回"
 
-#: razer/static/js/dashboard.js:60 razer/static/js/dashboard.js:74
+#: dashboard/static/js/dashboard.js:60 dashboard/static/js/dashboard.js:74
 msgid "Change To Bar Chart"
 msgstr "切换为柱状图"
 
-#: razer/static/js/dashboard.js:61
+#: dashboard/static/js/dashboard.js:61
 msgid "Change To Line Chart"
 msgstr "切换为线图"
 
-#: razer/static/js/retention.js:4 razer/static/js/retention.js:52
-#: razer/static/js/retention.js:150
+#: dashboard/static/js/retention.js:4 dashboard/static/js/retention.js:52
+#: dashboard/static/js/retention.js:150
 msgid "Their"
 msgstr "用户的"
 
-#: razer/static/js/retention.js:10 razer/static/js/retention.js:58
-#: razer/static/js/retention.js:156
+#: dashboard/static/js/retention.js:10 dashboard/static/js/retention.js:58
+#: dashboard/static/js/retention.js:156
 msgid "is"
 msgstr "是"
 
-#: razer/static/js/retention.js:49 razer/static/js/retention.js:147
+#: dashboard/static/js/retention.js:49 dashboard/static/js/retention.js:147
 msgid "Event:"
 msgstr "事件过滤"
 
-#: razer/static/js/retention.js:92 razer/static/js/retention.js:190
+#: dashboard/static/js/retention.js:92 dashboard/static/js/retention.js:190
 msgid "Frequency"
 msgstr "频率"
 
-#: razer/static/js/retention.js:100 razer/static/js/retention.js:198
+#: dashboard/static/js/retention.js:100 dashboard/static/js/retention.js:198
 msgid "time(s)"
 msgstr "次"
 
-#: razer/static/js/retention.js:103
+#: dashboard/static/js/retention.js:103
 msgid "Group by"
 msgstr "分类依据"
 
-#: razer/static/js/retention.js:109
+#: dashboard/static/js/retention.js:109
 msgid "Advanced"
 msgstr "进阶"
 
-#: razer/static/js/retention.js:117
+#: dashboard/static/js/retention.js:117
 msgid "Min"
 msgstr "起始"
 
-#: razer/static/js/retention.js:121
+#: dashboard/static/js/retention.js:121
 msgid "Max"
 msgstr "结束"
 
-#: razer/static/js/retention.js:127
+#: dashboard/static/js/retention.js:127
 msgid "Interval"
 msgstr "间隔"
 
-#: razer/static/js/retention.js:131
+#: dashboard/static/js/retention.js:131
 msgid "Log Scale"
 msgstr "指数单位"
 
-#: razer/static/js/retention.js:201
+#: dashboard/static/js/retention.js:201
 msgid "In the"
 msgstr "在"
 
-#: razer/static/js/retention.js:204
+#: dashboard/static/js/retention.js:204
 msgid "first"
 msgstr "前"
 
-#: razer/static/js/retention.js:205
+#: dashboard/static/js/retention.js:205
 msgid "any"
 msgstr "任意"
 
-#: razer/static/js/retention.js:211
+#: dashboard/static/js/retention.js:211
 msgid "day(s)"
 msgstr "天"
 
-#: razer/static/js/retention.js:270 razer/static/js/retention.js:271
+#: dashboard/static/js/retention.js:270 dashboard/static/js/retention.js:271
 msgid "Event "
 msgstr "事件 "
 
-#: razer/static/js/retention.js:278 razer/static/js/retention.js:288
-#: razer/static/js/retention.js:293 razer/static/js/retention.js:336
-#: razer/static/js/retention.js:373 razer/static/js/retention.js:391
-#: razer/static/js/retention.js:403
+#: dashboard/static/js/retention.js:278 dashboard/static/js/retention.js:288
+#: dashboard/static/js/retention.js:293 dashboard/static/js/retention.js:336
+#: dashboard/static/js/retention.js:373 dashboard/static/js/retention.js:391
+#: dashboard/static/js/retention.js:403
 msgid "Select an option"
 msgstr "请选择"
 
-#: razer/static/js/retention.js:466 razer/static/js/retention.js:481
+#: dashboard/static/js/retention.js:466 dashboard/static/js/retention.js:481
 msgid "Select some events"
 msgstr "请选择事件"
 
-#: razer/static/js/retention.js:769
+#: dashboard/static/js/retention.js:769
 msgid "Please select measure."
 msgstr "请选择指标"
 
-#: razer/static/js/retention.js:777
+#: dashboard/static/js/retention.js:777
 msgid "Please select an option."
 msgstr "请选择"
 
-#: razer/static/js/retention.js:787
+#: dashboard/static/js/retention.js:787
 msgid "Please select at least one value."
 msgstr "请至少选择一个选项"
 
-#: razer/static/js/retention.js:1023 razer/static/js/retention.js:1226
+#: dashboard/static/js/retention.js:1023 dashboard/static/js/retention.js:1226
 msgid "Invalid Query"
 msgstr "查询不正确"
 
-#: razer/static/js/simple-funnel.js:40 razer/static/js/simple-funnel.js:58
+#: dashboard/static/js/simple-funnel.js:40 dashboard/static/js/simple-funnel.js:58
 msgid "Stage "
 msgstr "阶段 "
 
-#: razer/static/js/simple-funnel.js:58
+#: dashboard/static/js/simple-funnel.js:58
 msgid "(Any Event)"
 msgstr "(任意事件)"
 
-#: razer/static/js/simple-funnel.js:141
+#: dashboard/static/js/simple-funnel.js:141
 msgid "Stage"
 msgstr "阶段"
 

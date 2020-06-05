@@ -10,7 +10,7 @@ import yaml
 import pandas as pd
 import string
 import random
-from razer.models import *
+from dashboard.models import *
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 upload_path = "upload/"

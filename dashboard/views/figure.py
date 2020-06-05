@@ -1,7 +1,7 @@
 from django.shortcuts       import render, redirect
 from django.views           import View
 
-from razer.models import *
+from dashboard.models import *
 import json
 
 upload_path = "upload/"

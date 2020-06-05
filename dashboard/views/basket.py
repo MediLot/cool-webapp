@@ -13,56 +13,56 @@ class BASKET( View ):
 
         spendData={}
         try:
-            with open('razer/data/spend.dat') as data_file:
+            with open('dashboard/data/spend.dat') as data_file:
                 spendData = json.load(data_file)
         except Exception as e:
             pass
 
         spend2Data={}
         try:
-            with open('razer/data/spend2.dat') as data_file:
+            with open('dashboard/data/spend2.dat') as data_file:
                 spend2Data = json.load(data_file)
         except Exception as e:
             pass
 
         spend3Data={}
         try:
-            with open('razer/data/spend3.dat') as data_file:
+            with open('dashboard/data/spend3.dat') as data_file:
                 spend3Data = json.load(data_file)
         except Exception as e:
             pass
 
         heat1Data={}
         try:
-            with open('razer/data/heat1.dat') as data_file:
+            with open('dashboard/data/heat1.dat') as data_file:
                 heat1Data = json.load(data_file)
         except Exception as e:
             pass
 
         heat2Data={}
         try:
-            with open('razer/data/heat2.dat') as data_file:
+            with open('dashboard/data/heat2.dat') as data_file:
                 heat2Data = json.load(data_file)
         except Exception as e:
             pass
 
         heat3Data={}
         try:
-            with open('razer/data/heat3.dat') as data_file:
+            with open('dashboard/data/heat3.dat') as data_file:
                 heat3Data = json.load(data_file)
         except Exception as e:
             pass
 
         heat4Data={}
         try:
-            with open('razer/data/heat4.dat') as data_file:
+            with open('dashboard/data/heat4.dat') as data_file:
                 heat4Data = json.load(data_file)
         except Exception as e:
             pass
 
         heat5Data={}
         try:
-            with open('razer/data/heat5.dat') as data_file:
+            with open('dashboard/data/heat5.dat') as data_file:
                 heat5Data = json.load(data_file)
         except Exception as e:
             pass
