@@ -1,0 +1,175 @@
+
+.dropdown.query_builder {
+    display: inline;
+}
+#funnel-container {
+    margin: 20px;
+    /*height: 750px;*/
+}
+#echarts-funnel {
+    /*height: 750px;*/
+    width: 100%;
+}
+#funnel {
+    height: 200px;
+    width: 100%;
+}
+.connectedSortable {
+    border: 2px solid #737373;
+    min-width: 180px;
+    min-height: 20px;
+    list-style-type: none;
+    margin-bottom: 15px;
+    /*padding: 5px 0 0 0;*/
+    margin-right: 10px;
+    padding: 5px 10px;
+    min-height: 50px;
+    position: relative;
+}
+
+.connectedSortable2 {
+    border: 2px solid #737373;
+    min-width: 180px;
+    min-height: 20px;
+    list-style-type: none;
+    /*margin-bottom: 15px;*/
+    /*padding: 5px 0 0 0;*/
+    margin-right: 10px;
+    padding: 5px 10px;
+    min-height: 50px;
+    position: relative;
+}
+#sortables-add-btn {
+    position: relative;
+}
+.list-delete-btn {
+    position: absolute;
+    right: -40px;
+    top: 6px;
+    color: #d9534f;
+    font-weight: 800;
+    font-size: 22px;
+}
+.list-placeholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    color: #777;
+    font-weight: 800;
+    font-size: 15px;
+}
+.list-separator {
+    /*width: 250px;*/
+    text-align: center;
+    font-size: 22px;
+    margin: 5px 0;
+    color: rgba(115, 115, 115, 0.68);
+}
+.list-separator.add-icon {
+    color: #5ad46b;
+}
+.list-label {
+    display: table;
+    z-index: 99;
+    background-color: white;
+    padding: 0 6px;
+    margin: -18px 0 0px 0px;
+
+    color: #333;
+    font-weight: 800;
+    font-size: 15px;
+}
+
+#sortable0 {
+}
+.button-col .btn {
+    width: 100%;
+}
+
+#drag-boxes {
+    padding: 20px 0;
+}
+#drag-boxes, #drag-boxes li.draggable-event {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.draggable-event {
+    font-weight: 800;
+    color: black;
+    /*background-color: rgba(55, 200, 100, 0.5);*/
+    background-color: rgba(155, 227, 177, 0.65);
+    /*background-color: rgb(190, 237, 204);*/
+    border-radius: 3px;
+    padding: 2px 15px;
+    margin: 5px 0;
+    cursor: move;
+}
+
+.draggable-event2 {
+    font-weight: 800;
+    color: black;
+    /*background-color: rgba(55, 200, 100, 0.5);*/
+    background-color: rgba(155, 227, 177, 0.65);
+    /*background-color: rgb(190, 237, 204);*/
+    border-radius: 3px;
+    padding: 2px 15px;
+    margin: 5px 0;
+    width: 100%;
+}
+
+#sortables-add-btn, #sortables-remove-btn {
+    cursor: pointer;
+}
+
+.event-title {
+    float: left;
+    max-width: 1%;
+}
+
+.event-filter-button {
+    float: right;
+    color: rgba(0,0,0,0.3);
+}
+
+.event-settings {
+    clear: both;
+    float: left;
+    display: block;
+    position: relative;
+    display: none;
+    padding: 3px 0 3px 0px;
+    font-size: 12px;
+    font-weight: 400;
+    width: 100%;
+}
+
+.event-text-fields {
+    display: inline-block;
+    position: absolute;
+    right: 30px;
+}
+.number-of-times-input {
+    border: 1px solid gray;
+    width: 30px;
+    height: 17px;
+    text-align: center;
+}
+
+
+.event-clear-button {
+    float: right;
+    /*border: 1px solid #404040;*/
+    color: #555;
+    /*padding: 0 7px;*/
+    border-radius: 10px;
+}
+
+.event-clear-button, .event-filter-button {
+    cursor: pointer;
+}
+
+
+
+

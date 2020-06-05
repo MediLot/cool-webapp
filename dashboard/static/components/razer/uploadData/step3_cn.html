@@ -1,0 +1,55 @@
+<div class='header'>
+    第三步: 自定义计算方式
+    <i
+        class='fa fa-info-circle'
+        data-toggle="tooltip"
+        data-placement="right"
+        title='You can always come back to change or add metrics'
+        data-container="body"
+    ></i>
+</div>
+
+<div class='container'>
+
+<div class='well' ng-repeat='metric in $ctrl.metrics'>
+    <div>
+        <div class='input-label'>您想用什么计算方式呢？</div>
+        <select class='form-control input-select' ng-model='metric.alligator'>
+            <option value='COUNT'    >计数    </option>
+            <option value='SUM'      >求和      </option>
+            <option value='RETENTION'>忠诚度</option>
+        </select>
+    </div>
+
+    <div>
+        <div class='input-label'>在哪列计算呢？</div>
+        <select
+            class='form-control input-select'
+            ng-model='metric.column'
+            ng-options='field.name as field.name for field in $ctrl.fields'
+        >
+        </select>
+    </div>
+
+    <div>
+        <div class='input-label'>我们会把它称作</div>
+        <input class='form-control input-select' ng-model='metric.name'
+            placeholder='{{ metric.column + "-" + metric.alligator }}'
+        >
+    </div>
+
+</div>
+
+<div class='text-center'>
+    <i class='fa fa-plus fa-2x' ng-click='$ctrl.addMetric()' style='margin-bottom: 2em;' title='Add metric'></i>
+    <br>
+    <button
+        type='button'
+        class='btn btn-info'
+        ng-disabled='!$ctrl.metrics[0].alligator || !$ctrl.metrics[0].column'
+        ng-click='$ctrl.upload()'
+    >上传</button>
+</div>
+<input type='text' style='display:none' id='uploadData' name='data' ng-model='$ctrl.data'>
+
+</div>

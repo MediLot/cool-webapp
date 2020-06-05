@@ -1,0 +1,71 @@
+<div class='header'>Step two: Tell us more about your dataset<div>
+
+<div class='container'>
+
+<div class='well' ng-repeat='field in $ctrl.fields'>
+
+    <div>
+        Name: <span class='field-name' ng-bind='field.name'></span>
+    </div>
+
+    <div>
+        They represent
+        <select
+            class='form-control input-select'
+            ng-model='field.fieldType'
+            ng-options='fieldType.name for fieldType in $ctrl.fieldTypes track by fieldType.name'
+        ></select>
+            <div class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg"  ng-if='$first' style="color: #34495E;background-color:transparent; border-color: transparent;">
+                <label class="glyphicon glyphicon-question-sign" ng-if='$first'></label>
+            </div>
+<!--         <a class='btn btn-link' target='_blank' href='/static/img/guide to choosing the correct option.pdf'>
+            <i
+                class='fa fa-question-circle'
+                ng-if='$first'
+                data-toggle="tooltip"
+                data-placement="right"
+                title="Click here to find out how to choose the correct option"
+                data-container="body"
+            ></i>
+        </a> -->
+        <span ng-if='field.fieldType.subTypes'>
+            in
+            <select
+                class='form-control input-select'
+                ng-model='field.fieldSubType'
+                ng-options='item.name for item in field.fieldType.subTypes'
+            >
+                <option value=''>Select type</option>
+            </select>
+        </span>
+
+    </div>
+</div>
+
+<div class='text-center'>
+    <button
+        type='button'
+        class='btn btn-info'
+        title='{{ $ctrl.message }}'
+        ng-disabled='$ctrl.nextDisabled()'
+        ng-click='$ctrl.next()'
+    >Next</button>
+</div>
+
+</div>
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">A Complete Guide to Choosing the Correct Option</h4>
+        <div class="modal-body">
+          <p>*Event, Time and User ID is mandatory and can only be chosen once</p>
+          <img src="../static/img/selection.png" style="width:800px;height:800px;">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+</div>

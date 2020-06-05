@@ -1,0 +1,32 @@
+{
+    "dataSource" : "sogamo",
+    "birthSequence" : { 
+        "birthEvents" : [{
+            "minTrigger": 1,
+            "maxTrigger": -1,
+            "eventSelection": [{
+                "fieldValue": {
+                    "type" : "AbsoluteValue",
+                    "values" : [ "PopupDivineIntervention" ],
+                    "baseField" : null,
+                    "baseEvent" : -1 
+                },
+                "cubeField" : "event",
+                "filterType" : "Set"
+            }],
+            "timeWindow" : {
+                "length" : 7,
+                "slice" : "false",
+                "unit" : "DAY"
+            }
+        }]
+    },
+    "ageField" : {
+        "field" : "eventDay",
+        "unit" : "DAY",
+        "ageInterval" : 1,
+        "range" : ["1|10000"]
+    },
+    "measure" : "Retention"
+}
+

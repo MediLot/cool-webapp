@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block    head %}
+{% endblock head %}
+
+{% block    body %}
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class role="tabpanel">
+        <ul id="myTab" class="nav nav-tabs bar_tabs row" role="tablist">
+            <li role="presentation" class="active"><a href="#tab_content1" id="1-tab" role="tab" data-toggle="tab" aria-expanded="true">Frequency</a>
+            </li>
+            <li role="presentation" class=""><a href="#tab_content2" role="tab" id="2-tab" data-toggle="tab" aria-expanded="false">Online Purchase</a>
+            </li>
+            <li role="presentation" class=""><a href="#tab_content3" role="tab" id="3-tab" data-toggle="tab" aria-expanded="false">Online Video Consumption</a>
+            </li>
+            <li role="presentation" class=""><a href="#tab_content4" id="4-tab" role="tab" data-toggle="tab" aria-expanded="true">Online Videos</a>
+            </li>
+            <li role="presentation" class=""><a href="#tab_content5" role="tab" id="5-tab" data-toggle="tab" aria-expanded="false">Internet Usage</a>
+            </li>
+            <li role="presentation" class=""><a href="#tab_content6" role="tab" id="5-tab" data-toggle="tab" aria-expanded="false">SG use of Smartphone</a>
+            </li>
+        </ul>
+        <br>
+        <div id="myTabContent" class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div id="panel_continent" class="panel panel-default panel-container" >
+                        <div class="panel-heading">
+                            <h4>Frequency of Internet Usage by Age</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div  style="height:450px" id="c1g" class="chartpanel" ></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div id="panel_continent" class="panel panel-default panel-container" >
+                        <div class="panel-heading">
+                            <h4>Smartphone Activities Composition</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div  style="height:450px" id="c1f" class="chartpanel" ></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade in" id="tab_content2" aria-labelledby="home-tab">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div id="panel_continent" class="panel panel-default panel-container" >
+                        <div class="panel-heading">
+                            <h4>Online Purchase by Categories</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div  style="height:450px" id="c2g" class="chartpanel" ></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div id="panel_continent" class="panel panel-default panel-container" >
+                        <div class="panel-heading">
+                            <h4>Role of the Internet in Purchase Journey</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div  style="height:450px" id="c2f" class="chartpanel" ></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade in" id="tab_content3" aria-labelledby="home-tab">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div id="panel_continent" class="panel panel-default panel-container" >
+                        <div class="panel-heading">
+                            <h4>Motivations for Watching Online Videos</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div  style="height:450px" id="c3g" class="chartpanel" ></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div id="panel_continent" class="panel panel-default panel-container" >
+                        <div class="panel-heading">
+                            <h4>Companion for Watching Online Videos</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div  style="height:450px" id="c3f" class="chartpanel" ></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade in" id="tab_content4" aria-labelledby="home-tab">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div id="panel_continent" class="panel panel-default panel-container" >
+                        <div class="panel-heading">
+                            <h4>Fully Focused Time on Video by Country</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div  style="height:450px" id="c4g" class="chartpanel" ></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div id="panel_continent" class="panel panel-default panel-container" >
+                        <div class="panel-heading">
+                            <h4>Places Where People Watched Online Videos</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div  style="height:450px" id="c4f" class="chartpanel" ></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade in" id="tab_content5" aria-labelledby="home-tab">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div id="panel_continent" class="panel panel-default panel-container" >
+                        <div class="panel-heading">
+                            <h4>No. of Connected Devices per Person by Country</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div  style="height:450px" id="c5g" class="chartpanel" ></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div id="panel_continent" class="panel panel-default panel-container" >
+                        <div class="panel-heading">
+                            <h4>Internet usage</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div  style="height:450px" id="c5f" class="chartpanel" ></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade in" id="tab_content6" aria-labelledby="home-tab">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div id="panel_continent" class="panel panel-default panel-container" >
+                        <div class="panel-heading">
+                            <h4>Smartphones Usage in the Purchase Journey</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div  style="height:450px" id="c61" class="chartpanel" ></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div id="panel_continent" class="panel panel-default panel-container" >
+                        <div class="panel-heading">
+                            <h4>Online Research Prior to Offline Purchase</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div  style="height:450px" id="c63" class="chartpanel" ></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+</script>
+<script src="{% static 'js/mvc.js' %}">
+</script>
+{% endblock %}
+
+
+
+
+

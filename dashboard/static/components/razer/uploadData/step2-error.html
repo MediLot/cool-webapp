@@ -1,0 +1,38 @@
+<div class='header text-danger'>Upload data Validation Error</div>
+
+<div class='container'>
+
+<div class='row'>
+<div class='col-xs-6 col-xs-offset-3'>
+<table class="table">
+
+    <thead>
+    <tr>
+        <th>Fields</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+        <td>Sorted User ID</td>
+        <td ng-class='{ "text-danger": $ctrl.uploadValidation.sortedId != "OK" }' ng-bind='$ctrl.uploadValidation.sortedId'></td>
+    </tr>
+    <tr>
+        <td>Sorted Time</td>
+        <td ng-class='{ "text-danger": $ctrl.uploadValidation.sortedTime != "OK" }' ng-bind='$ctrl.uploadValidation.sortedTime'></td>
+    </tr>
+    <tr>
+        <td>Time Format</td>
+        <td ng-class='{ "text-danger": $ctrl.uploadValidation.timeFormat != "OK" }' ng-bind='$ctrl.uploadValidation.timeFormat'></td>
+    </tr>
+    <tr>
+        <td>Base Time</td>
+        <td ng-class='{ "text-danger": $ctrl.uploadValidation.baseTime != "OK" }' ng-bind='$ctrl.uploadValidation.baseTime'></td>
+    </tr>
+    </tbody>
+</table>
+</div>
+</div>
+
+</div>
