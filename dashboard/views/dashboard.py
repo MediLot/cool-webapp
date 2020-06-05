@@ -1,6 +1,6 @@
 from django.views          import View
 from django.shortcuts      import render, redirect
-from razer.models import *
+from dashboard.models import *
 import json
 import os
 
@@ -24,7 +24,7 @@ class Dashboard( View ):
             return redirect('/error')
 
         # deal with continent chart
-        with open('razer/data/continent.dat') as data_file:
+        with open('dashboard/data/continent.dat') as data_file:
             rawData = json.load(data_file)
         rawResult = rawData[u'result']
         i = 0
@@ -38,14 +38,14 @@ class Dashboard( View ):
         # deal with dau chart
         dauData = {}
         try:
-            with open('razer/data/dap.dat') as data_file:
+            with open('dashboard/data/dap.dat') as data_file:
                 dauData = json.load(data_file)
         except Exception as e:
             pass
 
         # deal with map
         mapData=[]
-        with open('razer/data/country.dat') as data_file:
+        with open('dashboard/data/country.dat') as data_file:
             rawData = json.load(data_file)
         rawResult = rawData[u'result']
         for r in rawResult:
@@ -54,35 +54,35 @@ class Dashboard( View ):
 
         birthData={}
         try:
-            with open('razer/data/age.dat') as data_file:
+            with open('dashboard/data/age.dat') as data_file:
                 birthData = json.load(data_file)
         except Exception as e:
             pass
 
         lastData={}
         try:
-            with open('razer/data/last_loaded.dat') as data_file:
+            with open('dashboard/data/last_loaded.dat') as data_file:
                 lastData = json.load(data_file)
         except Exception as e:
             pass
 
         medicineData={}
         try:
-            with open('razer/data/medicine.dat') as data_file:
+            with open('dashboard/data/medicine.dat') as data_file:
                 medicineData = json.load(data_file)
         except Exception as e:
             pass
 
         diseaseData={}
         try:
-            with open('razer/data/disease.dat') as data_file:
+            with open('dashboard/data/disease.dat') as data_file:
                 diseaseData = json.load(data_file)
         except Exception as e:
             pass
 
         genderData={}
         try:
-            with open('razer/data/gender.dat') as data_file:
+            with open('dashboard/data/gender.dat') as data_file:
                 genderData = json.load(data_file)
         except Exception as e:
             pass

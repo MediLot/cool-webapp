@@ -41,11 +41,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='csv_file',
             name='user_id',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='razer.user_info'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='dashboard.user_info'),
         ),
         migrations.AddField(
             model_name='analysis',
             name='file_id',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='razer.csv_file'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='dashboard.csv_file'),
         ),
     ]

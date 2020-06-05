@@ -5,7 +5,7 @@ import json
 import sys
 import traceback
 from . import request_bypass
-from razer.models import *
+from dashboard.models import *
 import string,random
 from datetime import datetime
 
@@ -36,7 +36,7 @@ class Api( View ):
             #     response['code'] = 200
             #     datasource = request.POST.get("datasource", "")
             #
-            #     with open("razer/queries/funnel.json", "r") as funnel_file:
+            #     with open("dashboard/queries/funnel.json", "r") as funnel_file:
             #         funnel = json.load(funnel_file)
             #
             #     request_data = request.POST.get("data", "")
@@ -45,11 +45,11 @@ class Api( View ):
             #     # print(stage, funnel)
             #
             #     for stage_text in request_obj:
-            #         with open("razer/queries/funnel_stage.json", "r") as stage_file:
+            #         with open("dashboard/queries/funnel_stage.json", "r") as stage_file:
             #             stage = json.load(stage_file)
             #             stage['birthEvents'] = []
             #             for key in stage_text:
-            #                 with open("razer/queries/birthEvent.json","r") as birthEvent_file:
+            #                 with open("dashboard/queries/birthEvent.json","r") as birthEvent_file:
             #                     birthEvent = json.load(birthEvent_file)
             #                     birthEvent['eventSelection'][0]['fieldValue']['values'] = [key['name']]
             #                     birthEvent['minTrigger'] = key['minTrigger']
@@ -86,14 +86,14 @@ class Api( View ):
             #     response['code'] = 200
             #     datasource = request.POST.get("datasource", "")
             #
-            #     file_path = "razer/queries/RetentionTemplate.json"
+            #     file_path = "dashboard/queries/RetentionTemplate.json"
             #     with open(file_path, "r") as cohort_file:
             #         cohort = json.load(cohort_file)
             #         cohort['birthSequence']['birthEvents'][0]['eventSelection'] = []
             #         events_data = request.POST.get("events", "")
             #         events = json.loads(events_data)
             #         for key in events:
-            #             with open("razer/queries/event.json", "r") as event_file:
+            #             with open("dashboard/queries/event.json", "r") as event_file:
             #                     event = json.load(event_file)
             #                     event['fieldValue']['values'][0] = key
             #             cohort['birthSequence']['birthEvents'][0]['eventSelection'].append(event)
@@ -175,7 +175,7 @@ class Api( View ):
                 except Exception as e:
                     raise Exception("Invalid Query")
                 response['message'] = "OK"
-                # with open('razer/data/last_loaded.dat', 'w') as jsonFile:
+                # with open('dashboard/data/last_loaded.dat', 'w') as jsonFile:
                 #     json.dump(response, jsonFile)
                 # return HttpResponse(json.dumps(response))
 
@@ -200,7 +200,7 @@ class Api( View ):
                     response['data'] = request_bypass.pass_funnel(funnel)
                 except Exception as e:
                     raise Exception("Invalid Query")
-                # with open('razer/data/last_loaded.dat', 'w') as jsonFile:
+                # with open('dashboard/data/last_loaded.dat', 'w') as jsonFile:
                 #     json.dump(response, jsonFile)
 
                 request_bypass.removeCohort("loyal")
