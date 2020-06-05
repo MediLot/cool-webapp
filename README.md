@@ -47,15 +47,15 @@ Password: zaq12wsx
 1. [init.sh](init.sh): load the demo dataset and start two dockers.
 	It uses [preprocess.py](utils/preprocess.py) to load the demo dataset and run init.sh.
 
-2. [start.sh](start.sh): build the dockers for scape and scape-front-end, and start them in background.
+2. [start.sh](start.sh): build the dockers for cool and cool-front-end, and start them in background.
 
-3. [stop.sh](stop.sh): stop the dockers which contain scape and scape-front-end.
+3. [stop.sh](stop.sh): stop the dockers which contain cool and cool-front-end.
 
 4. [restart.sh](restart.sh): stop and restart the dockers.
 
 5. [docker.sh](docker.sh): example script for installing docker in AWS EC2.
 
-6. [clean.sh](clean.sh): remove all docker containers and all docker images about scape.
+6. [clean.sh](clean.sh): remove all docker containers and all docker images about cool.
 
 ## Description on Table.yaml
 
