@@ -1,121 +1,121 @@
-# COOL for COVID19 Demo App
 
-This document is for the COVID19 Demo App which is based on the cohana system. 
+# COOL for COVID19 Demo App
+COOL is a cohort online analytical processing system that processes both cohort queries and conventional OLAP queries with superb performance.  
+
+As an integrated system with the support of several newly proposed operators on top of a sophisticated storage layer, it processes both cohort queries and conventional OLAP queries with superb performance.  
 
 For more information, you can refer to the [paper](https://www.comp.nus.edu.sg/~ooibc/icde20cool.pdf).
 
-## Set up
+In this project, COOL is applied to Covid19 analysis.
 
-Please pre-install the docker environment at first.
+# Dependencies
+- [Django](https://www.djangoproject.com/)
+- [Docker](https://www.docker.com/)
 
-```sh
+# Quick Start - Commands to be run within project directory
+* Pre-install the docker environment first, by building and running the required docker containers
+```
 sh start.sh
 ```
-
-`start.sh` will build and run the needed docker containers
-```sh
-# check docker container status
+* Check docker container status
+```
 docker ps -a
-
-# stop the demo dockers
+```
+* Stop demo dockers
+```
 docker stop <container-id>
 ```
+* Application runs on `http://127.0.0.1:8201/`
+ 
 
-go to `http://127.0.0.1:8201/`
-
-### Dataset Required documents:
-
-1. Dataset should be a csv file with "," delimiter (normally dumped from a database
-table). 
-
-2. It would be better to use the app if the dataset includes `id`, `time`, `event` columns.
-
-3. The elements in the `event` column should be same as the columns of the dataset. 
-
-4. The `time` column should follow "YYYY-MM-DD" format. 
-
-5. Example file can be found [here](example-data/example.csv).
-
-### Login
+# Login Details
 
 User ID: root
 Password: zaq12wsx
 
+# Requirements for uploaded datasets:
 
-### Scripts:
+1. CSV file with "," as delimiter (typically dumped from a database table)
 
-1. [init.sh](init.sh): load the demo dataset and start two dockers.
-	It uses [preprocess.py](utils/preprocess.py) to load the demo dataset and run init.sh.
+2. Preferably includes `id`, `time`, `event` columns, appropriately named
 
-2. [start.sh](start.sh): build the dockers for cool and cool-front-end, and start them in background.
+3. Number of columns in dataset should correspond to number of elements in the `event` column  
 
-3. [stop.sh](stop.sh): stop the dockers which contain cool and cool-front-end.
+4.  `time` column should follow "YYYY-MM-DD" format
 
-4. [restart.sh](restart.sh): stop and restart the dockers.
+* Example dataset: [here](example-data/example.csv).  
 
-5. [docker.sh](docker.sh): example script for installing docker in AWS EC2.
+# Scripts:
 
-6. [clean.sh](clean.sh): remove all docker containers and all docker images about cool.
+1.  [init.sh](init.sh): Loads the demo dataset and starts two dockers
 
-## Description on Table.yaml
+It uses [preprocess.py](utils/preprocess.py) to load the demo dataset and run init.sh.
 
-This section describes the schema of the dataset and is used in data compacting
-and query processing. [Example File](/example-data/example-table.yaml)
+2.  [start.sh](start.sh): Builds the dockers for COOL and COOL front-end, and starts them in the background
 
-### For data compacting 
-When compacting the data, "table.yaml" defines the exact schema of the
-dataset in the sense that:
+3.  [stop.sh](stop.sh): Stops the dockers
 
-> For column i of the dataset, the i-th 
-entry of the schema file describing the meta-data of this column 
+4.  [restart.sh](restart.sh): Stops and restarts the dockers
 
-Each entry has three attributes, i.e., name, fieldType and dataType. 
+5.  [docker.sh](docker.sh): A sample script for installing docker in AWS EC2
+  
+6.  [clean.sh](clean.sh): Removes all docker containers and all docker images relating to COOL
 
-1. The name attribute is a unique string representing the name of the respective column. 
-2. For fieldType attribute, there are six possible values: "AppKey", "UserKey",
-"Action", "ActionTime", "Segment" and "Metric". 
+# Description on Table.yaml
 
-	* "AppKey" indicates that the
-respective column contains the unique id of a certain application. As of now,
-we only support a single application in a dataset, and so this field is not
-used in the query.
-	* "UserKey", "Action" and "ActionTime" indicate that the
-columns respectively ontain the user id, event and event time. These three
-columns compose the primary key of the dataset, and thus they MUST be present
-in the dataset. 
-	* "Segment" indicates the respective column contains String
-values.
-	* "Metric" indicates the respective column contains Int32 values.
+This section describes the schema of the dataset used in data compacting and query processing.
 
-3. The dataType attribute only has two possible values: String and Int32. 
-Note we also treat the ActionTime as Int32, though it can be of the timestamp format.
+* Example file: [here](/example-data/example-table.yaml).
 
-### For query precessing
-Users can add more entries 
-(used as cohort selection attributes in the query processing) 
-to "table.yaml". 
+## For data compacting
 
-Each such entry defines an aggregate function, and hence has two additional attributes, "baseField" and "aggregator",
-compared with the fields defined in the original schema file. 
+When compacting data, "table.yaml" defines the exact schema of the dataset:
 
-* "name" is specified by user and should be different from the name of other entries. 
-* "fieldType" and "dataType" of such entries are fixed and
-take the value of Metric and Aggregate, respectively.
-* "baseField" indicates which column of the original schema will be aggregated and takes the name attribute of the that column as its value. 
-* "aggregator" indicates the aggregate function to apply. 
-For now, it can be **COUNT**, **SUM**, **RETENTION**. More
-aggregate functions are now under development.
+> For column i of the dataset, the i-th entry of the schema file describes the meta-data of the column
 
+Each entry has three attributes, i.e., name, fieldType and dataType.
 
-## Description on Cube.yaml
-For cube.yaml, there are two parts: dimensions and measures. 
-For now,dimensions is not used and can be omitted. 
-For each entry in the measures part, it contains three attributes: "aggregator", "name" and "tableFieldName". 
+1. The name attribute is a unique string representing the respective column names.
 
-* "aggregator" and "name" have the same meaning as the schema file
-table.yaml
-* "tableFieldName" is the same as the baseField attribute
-of the schema file. The entries of the measures part provides the metrics that
-can be specified in cohort queris. 
+2. For fieldType attribute, there are six possible values: "AppKey", "UserKey", "Action", "ActionTime", "Segment" and "Metric".
 
-[Example File](/example-data/example-cube.yaml)
+* "AppKey" indicates that the respective column contains the unique id of a certain application. As of now, only a single application in a dataset is supported, and so this field is not applicable.
+
+* "UserKey", "Action" and "ActionTime" indicates that the respective column contains the user id, event and event time. These three columns jointly compose the primary key of the dataset, and must be preesnt in the dataset.
+
+* "Segment" indicates that the respective column contains String values.
+
+* "Metric" indicates that the respective column contains Int32 values.
+
+3. The dataType attribute only has two possible values: String or Int32.
+
+>Note: ActionTime is treated as Int32, althought it may follow a timestamp format.  
+
+## For query processing
+
+Users can add more entries (used as cohort selection attributes in the query processing) to "table.yaml".
+
+Each entry defines an aggregate function and hence, has two additional attributes, "baseField" and "aggregator" apart from those defined in the original schema file.  
+
+* "name" is specified by user and should be different from the name of other entries.
+
+* "fieldType" and "dataType" of such entries are fixed and take the value of Metric and Aggregate, respectively.
+
+* "baseField" indicates which column of the original schema will be aggregated and takes the name attribute of the that column as its value.
+
+* "aggregator" indicates the aggregate function to apply. For now, it can be **COUNT**, **SUM**, **RETENTION**. More aggregate functions are being developed.
+  
+
+# Description on Cube.yaml
+
+For cube.yaml, there are two parts: dimensions and measures.
+
+For now, dimensions is not used and can be omitted.
+
+For each entry in the measures part, it contains three attributes: "aggregator", "name" and "tableFieldName".
+
+* "aggregator" and "name" has the same meaning as the schema file Table.yaml
+
+* "tableFieldName" is the same as the baseField attribute of the schema file. The entries of the measures part provides the metrics that can be specified in cohort queries.  
+
+* Example file: [here](/example-data/example-cube.yaml).
