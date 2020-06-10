@@ -8,13 +8,9 @@ For more information, you can refer to the [paper](https://www.comp.nus.edu.sg/~
 
 In this project, COOL is applied to Covid19 analysis.
 
-# Dependencies
-- [Django](https://www.djangoproject.com/)
-- [Docker](https://www.docker.com/)
-
 # Set up
 * Change current working directory to project directory
-* Set up virtual environment for the application
+* Set up virtual environment for the application (Optional)
 ```
 virtualenv -p python3 ./venv
 source ./venv/bin/activate
@@ -23,6 +19,14 @@ pip install --upgrade pip
 * Install required dependencies
 ```
 pip install django==1.11
+```
+* Other dependencies
+
+[Docker](https://www.docker.com/)
+* For an example user login, use the following details
+```
+User ID: root
+Password: zaq12wsx
 ```
 
 # Quick Start
@@ -41,12 +45,6 @@ docker ps -a
 docker stop <container-id>
 ```
 * The application is now running at `http://127.0.0.1:8201/`.
- 
-
-# Login Details
-
-User ID: root
-Password: zaq12wsx
 
 # Requirements for uploaded datasets:
 
@@ -74,73 +72,27 @@ Password: zaq12wsx
   
 6.  [clean.sh](clean.sh): Removes all docker containers and all docker images relating to COOL
 
-# Directory Structure
-```
-|___cohana
-| |___20200525180204iT3Dlq0c
-| | |___cube.yaml
-| | |___dim.csv
-| | |___data.csv
-| | |___raw.csv
-| | |___table.yaml
-| | |___000000
-| | | |___1724d001a3e.dz
-| | |___20200525180326I6ckZMlL.dat
-|___cool
-|___cool_dashboard
-|___dashboard
-| |___migrations
-| |___models.py
-| |___queries
-| |___apps.py
-| |___admin.py
-| |___static
-| |___templates
-| |___tests.py
-| |___urls.py
-| |___data
-| |___views
-|___example-data
-|___locale
-|___upload
-|___utils
-|___.gitignore
-|___clean.sh
-|___db.sqlite3
-|___dim.db
-|___docker.sh
-|___Dockerfile
-|___init.sh
-|___manage.py
-|___pip.conf
-|___preprocess.log
-|___README.md
-|___restart.sh
-|___start_django.sh
-|___start.sh
-|___stop.sh
-```
-## Directory Descriptions
+# Directory Descriptions
 
-### Cool
+## Cool
 
 Cool application's backend
 
-### Cool_Dashboard
+## Cool_Dashboard
 
 Settings for Django server
 
-### Dashboard
+## Dashboard
 
 Main Django Application
 
-### Table.yaml
+# Table.yaml
 
 This section describes the schema of the dataset used in data compacting and query processing.
 
 * Example file: [here](/example-data/example-table.yaml).
 
-#### For data compacting
+## For data compacting
 
 When compacting data, "table.yaml" defines the exact schema of the dataset:
 
@@ -164,7 +116,7 @@ Each entry has three attributes, i.e., name, fieldType and dataType.
 
 >Note: ActionTime is treated as Int32, althought it may follow a timestamp format.  
 
-#### For query processing
+## For query processing
 
 Users can add more entries (used as cohort selection attributes in the query processing) to "table.yaml".
 
@@ -179,7 +131,7 @@ Each entry defines an aggregate function and hence, has two additional attribute
 * "aggregator" indicates the aggregate function to apply. For now, it can be **COUNT**, **SUM**, **RETENTION**. More aggregate functions are being developed.
   
 
-### Cube.yaml
+# Cube.yaml
 
 For cube.yaml, there are two parts: dimensions and measures.
 
@@ -192,3 +144,10 @@ For each entry in the measures part, it contains three attributes: "aggregator",
 * "tableFieldName" is the same as the baseField attribute of the schema file. The entries of the measures part provides the metrics that can be specified in cohort queries.  
 
 * Example file: [here](/example-data/example-cube.yaml).
+
+# Literature References
+
+* [1] Z. Xie, H. Ying, C. Yue, M. Zhang, G. Chen, B. C. Ooi. [Cool: a COhort OnLine analytical processing system](https://www.comp.nus.edu.sg/~ooibc/icde20cool.pdf) IEEE International Conference on Data Engineering, 2020
+* [2] Q. Cai, Z. Xie, M. Zhang, G. Chen, H.V. Jagadish and B.C. Ooi. [Effective Temporal Dependence Discovery in Time Series Data](http://www.comp.nus.edu.sg/~ooibc/cohana18.pdf) ACM International Conference on Very Large Data Bases (VLDB), 2018
+* [3] Z. Xie, Q. Cai, F. He, G.Y. Ooi, W. Huang, B.C. Ooi. [Cohort Analysis with Ease](https://dl.acm.org/doi/10.1145/3183713.3193540) SIGMOD Proceedings of the 2018 International Conference on Management of Data
+* [4] D. Jiang, Q. Cai, G. Chen, H. V. Jagadish, B. C. Ooi, K.-L. Tan, and A. K. H. Tung. [Cohort Query Processing](http://www.vldb.org/pvldb/vol10/p1-ooi.pdf) ACM International Conference on Very Large Data Bases (VLDB), 2016
