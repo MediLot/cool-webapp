@@ -12,7 +12,22 @@ In this project, COOL is applied to Covid19 analysis.
 - [Django](https://www.djangoproject.com/)
 - [Docker](https://www.docker.com/)
 
-# Quick Start - Commands to be run within project directory
+# Set up
+* Change current working directory to project directory
+* Set up virtual environment for the application
+```
+virtualenv -p python3 ./venv
+source ./venv/bin/activate
+pip install --upgrade pip
+```
+* Install required dependencies
+```
+pip install django==1.11
+```
+
+# Quick Start
+You can get the application up and running on your local dev environment with these steps 
+* Change current working directory to project directory
 * Pre-install the docker environment first, by building and running the required docker containers
 ```
 sh start.sh
@@ -25,7 +40,7 @@ docker ps -a
 ```
 docker stop <container-id>
 ```
-* Application runs on `http://127.0.0.1:8201/`
+* The application is now running at `http://127.0.0.1:8201/`.
  
 
 # Login Details
@@ -47,9 +62,7 @@ Password: zaq12wsx
 
 # Scripts:
 
-1.  [init.sh](init.sh): Loads the demo dataset and starts two dockers
-
-It uses [preprocess.py](utils/preprocess.py) to load the demo dataset and run init.sh.
+1.  [init.sh](init.sh): Loads the demo dataset and starts two dockers. Uses [preprocess.py](utils/preprocess.py) to load the demo dataset and run init.sh.
 
 2.  [start.sh](start.sh): Builds the dockers for COOL and COOL front-end, and starts them in the background
 
@@ -61,13 +74,73 @@ It uses [preprocess.py](utils/preprocess.py) to load the demo dataset and run in
   
 6.  [clean.sh](clean.sh): Removes all docker containers and all docker images relating to COOL
 
-# Description on Table.yaml
+# Directory Structure
+```
+|___cohana
+| |___20200525180204iT3Dlq0c
+| | |___cube.yaml
+| | |___dim.csv
+| | |___data.csv
+| | |___raw.csv
+| | |___table.yaml
+| | |___000000
+| | | |___1724d001a3e.dz
+| | |___20200525180326I6ckZMlL.dat
+|___cool
+|___cool_dashboard
+|___dashboard
+| |___migrations
+| |___models.py
+| |___queries
+| |___apps.py
+| |___admin.py
+| |___static
+| |___templates
+| |___tests.py
+| |___urls.py
+| |___data
+| |___views
+|___example-data
+|___locale
+|___upload
+|___utils
+|___.gitignore
+|___clean.sh
+|___db.sqlite3
+|___dim.db
+|___docker.sh
+|___Dockerfile
+|___init.sh
+|___manage.py
+|___pip.conf
+|___preprocess.log
+|___README.md
+|___restart.sh
+|___start_django.sh
+|___start.sh
+|___stop.sh
+```
+## Directory Descriptions
+
+### Cool
+
+Cool application's backend
+
+### Cool_Dashboard
+
+Settings for Django server
+
+### Dashboard
+
+Main Django Application
+
+### Table.yaml
 
 This section describes the schema of the dataset used in data compacting and query processing.
 
 * Example file: [here](/example-data/example-table.yaml).
 
-## For data compacting
+#### For data compacting
 
 When compacting data, "table.yaml" defines the exact schema of the dataset:
 
@@ -91,7 +164,7 @@ Each entry has three attributes, i.e., name, fieldType and dataType.
 
 >Note: ActionTime is treated as Int32, althought it may follow a timestamp format.  
 
-## For query processing
+#### For query processing
 
 Users can add more entries (used as cohort selection attributes in the query processing) to "table.yaml".
 
@@ -106,7 +179,7 @@ Each entry defines an aggregate function and hence, has two additional attribute
 * "aggregator" indicates the aggregate function to apply. For now, it can be **COUNT**, **SUM**, **RETENTION**. More aggregate functions are being developed.
   
 
-# Description on Cube.yaml
+### Cube.yaml
 
 For cube.yaml, there are two parts: dimensions and measures.
 
