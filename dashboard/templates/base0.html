@@ -6,9 +6,12 @@
 <title>COOL -- Cohort OLAP Engine Demo for COVID19</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{#<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">#}
+{#<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">#}
+{#<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">#}
+<link rel="stylesheet" href="../../static/local/bootstrap.min.css">
+<link rel="stylesheet" href="../../static/local/bootstrap-theme.min.css">
+<link rel="stylesheet" href="../../static/local/font-awesome.min.css">
 
 <style>
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
@@ -16,7 +19,7 @@
 }</style>
 </head>
 
-<body class='{{ container | default:'container' }}' style='background-image: url("../static/img/wallpaper.jpg") ; background-size: 100%;overflow:visible;'>
+<body class='{{ container | default:'container' }}' style='background-image: url("../../static/img/wallpaper.jpg") ; background-size: 100%;overflow:visible;'>
 
 {% if user.is_authenticated %}
     <div class="btn dropdown pull-right">

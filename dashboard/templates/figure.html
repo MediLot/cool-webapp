@@ -26,7 +26,6 @@
 
 
 {% block    scripts %}
-<script src="https://unpkg.com/angular-ui-router@1.0.0-beta.1/release/angular-ui-router.js"></script>
 <script type="text/javascript" src="{% url 'javascript-catalog' %}"></script>
 <script type="text/javascript">
     {% for key,value in figures.items %}
@@ -91,14 +90,14 @@
                     feature: {
                         dataZoom: {
                             yAxisIndex: 'none'
-                        }, //区域缩放，区域缩放还原
+                        },
                         dataView: { 
                             readOnly: false
-                        }, //数据视图
+                        },
                         magicType: {
                             type: ['line', 'bar']
-                        },  //切换为折线图，切换为柱状图
-                        restore: {},  //还原
+                        }, 
+                        restore: {}, 
                         saveAsImage: {
                             show: true
                         }

@@ -24,13 +24,27 @@ You can get the application up and running on your local dev environment with th
 ```
 sh start.sh
 ```
-* Check docker container status
+* Check docker container status (med and med-front)
 ```
 docker ps -a
 ```
 * Stop demo dockers
 ```
 docker stop <container-id>
+```
+* save docker
+```
+docker save -o med.tar med
+docker save -o med-front.tar med-front
+```
+* load docker
+```
+docker load --input med.tar
+docker load < med.tar
+```
+* delete docker
+```
+dicker rmi -f image_id
 ```
 
 * The application is now running at `http://127.0.0.1:8201/`

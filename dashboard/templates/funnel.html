@@ -1,9 +1,9 @@
 {% extends 'base.html' %} {% load static %} {% block head %}
-{% get_current_language as LANGUAGE_CODE %}
+{#{% get_current_language as LANGUAGE_CODE %}#}
 <script>
    const CSRF_TOKEN = "{{ csrf_token }}";
    const datasource = "{{ datasource }}";
-   
+
    function redirectToSimple() {
        console.log("d");
        window.location.href = "/{{ LANGUAGE_CODE }}/funnel";
@@ -13,10 +13,14 @@
 <script src="{% static 'js/d3-funnel.js' %}"></script>
 <!--<script src="http://livejs.com/live.js"></script>-->
 <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet">-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.full.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" />
+{#<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.full.min.js"></script>#}
+{#<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>#}
+{#<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>#}
+{#<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" />#}
+<script src="../../static/local/select2.full.min.js"></script>
+<script type="text/javascript" src="../../static/local/moment.min.js"></script>
+<script type="text/javascript" src="../../static/local/bootstrap-datetimepicker.min.js"></script>
+<link rel="stylesheet" href="../../static/local/bootstrap-datetimepicker.min.css" />
 {% endblock head %} {% block body %}
 <div class="row">
    <div class="col-md-12 col-sm-12 col-xs-12">
@@ -44,7 +48,7 @@
                <div class="x_content">
                   <br>
                   <form id="query-form" data-parsley-validate="" class=" query-form form-horizontal form-label-left" novalidate="">
-                     
+
                      <!--USER SELECTION-->
                      <div class="form-group form-section-label"> <label class="control-label section-title col-md-3 col-sm-3 col-xs-12 filter-users">User Selection<input id="filter-users-checkbox" type="checkbox" name="filter-users" value="filter-users" checked></label></div>
                      <div id="users-events-container" class="events-container">
@@ -219,7 +223,7 @@
                      </div>
                   </form>
                </div>
-               
+
             </div>
          </div>
       </div>
@@ -238,7 +242,7 @@
             <h4 class="modal-title">Advanced Funnel Tutorial</h4>
          </div>
          <div class="modal-body">
-            <img src="../static/img/advanced_funnel_tutorial.png" style="width:520px;height:520px;">
+            <img src="../../static/img/advanced_funnel_tutorial.png" style="width:520px;height:520px;">
          </div>
          <div class="modal-footer">
             <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
