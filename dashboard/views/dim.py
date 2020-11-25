@@ -51,7 +51,7 @@ class Dim( View ):
                         response['pagination']['more'] = "true" if len(c.fetchall()) > 0 else "false"
                 else:
                     data = []
-                    for row in c.execute('SELECT value FROM "%s" WHERE col="%s" AND value LIKE "%\%s%" ORDER BY col DESC LIMIT 50' % (table, col, term)):
+                    for row in c.execute('SELECT value FROM "%s" WHERE col="%s" AND value LIKE "%\%s%" ORDER BY col DESC LIMIT 100' % (table, col, term)):
                     # for row in c.execute('SELECT value FROM dim WHERE col="'+col+'" AND instr(value, "' + term + '")>0 ORDER BY col DESC LIMIT 50'):
                         data.append(row[0])
                     response['results'] = data

@@ -27,6 +27,8 @@ class Api( View ):
         agg = request.session['agg']
         file_save = request.session['file_save']
 
+        print(analysis_name)
+
         rand_str = ''.join(random.sample(string.ascii_letters + string.digits, 8))
         analysis_save = datetime.now().strftime('%Y%m%d%H%M%S') + rand_str
 

@@ -25,9 +25,8 @@ def pass_request(query, server=SERVER):
             'Content-Type':'application/json', \
             'Accept' :'*/*'
             }
-    print(query)
-    r = requests.post(server+'/v1/cohort/analysis',
-            data = json.dumps(query), headers = headers)
+    print("pass request: " + json.dumps(query))
+    r = requests.post(server+'/v1/cohort/analysis',data = json.dumps(query), headers = headers)
     # print(r.text)
     return json.loads(r.text)
 
@@ -39,8 +38,8 @@ def pass_funnel(query, server=SERVER):
             'Content-Type':'application/json', \
             'Accept' :'*/*'
             }
-    r = requests.post(server+'/v1/cohort/funnel',
-            data = json.dumps(query), headers = headers)
+    print("pass funnel: " + json.dumps(query))
+    r = requests.post(server+'/v1/cohort/funnel',data = json.dumps(query), headers = headers)
 
     return json.loads(r.text)
 
@@ -64,7 +63,7 @@ def pass_create_request(query, server=SERVER):
             'Content-Type':'application/json', \
             'Accept' :'*/*'
             }
-    print(query)
+    print("pass create request:" + json.dumps(query))
     r = requests.post(server+'/v1/cohort/manage/create', data = json.dumps(query), headers = headers)
     # print(r.text)
 
@@ -72,6 +71,7 @@ def pass_create_request(query, server=SERVER):
 
 def removeCohort(cohort, server=SERVER):
     url = server+'/v1/cohort/manage/remove/' + cohort
+    print("Remove cohort: "+url)
     r = requests.get(url)
     return r.status_code
 

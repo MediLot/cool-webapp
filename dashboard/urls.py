@@ -15,7 +15,6 @@ urlpatterns = [
 	url(r'^$',						index_redirect , name='index' ),
 	url(r'^api/v1',					login_required(views.Api.as_view()), name='api'),
 	url(r'^dashboard',				login_required(views.Dashboard.as_view()), name='dashboard'),
-	url(r'^register/$', 			views.Register.as_view(), name='register'),
 	url(r'^upload',					login_required(views.Upload.as_view()), name='Upload'),
 	url(r'^column_list',			login_required(views.Column_list.as_view()), name='Column list'),
 	url(r'^database',				login_required(views.Database.as_view()), name='Database'),
@@ -25,6 +24,7 @@ urlpatterns = [
 	url(r'^retention/advance', 		login_required(views.Retention.as_view()), name='retention'),
 
 	# following function are not used
+	url(r'^register/$', views.Register.as_view(), name='register'),
 	url(r'^mvc', login_required(views.MVC.as_view()), name='mvc'),
 	url(r'^basket', login_required(views.BASKET.as_view()), name='basket'),
 	url(r'^funnel/advance', login_required(views.Funnel.as_view()), name='funnel'),
