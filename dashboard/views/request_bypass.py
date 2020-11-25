@@ -2,7 +2,7 @@ import requests
 import re
 import json
 
-SERVER = 'http://med:9998'
+SERVER = 'http://cool-backend:9998'
 # SERVER = 'http://127.0.0.1:8188'
 # SERVER = 'http://poi.life:9998'
 

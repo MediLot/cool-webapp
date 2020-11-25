@@ -9,4 +9,4 @@ EXPOSE 8188
 EXPOSE 9999
 WORKDIR cohana
 ENTRYPOINT [ "/bin/bash" ]
-CMD [ "start_django.sh" ]
+CMD [ "./cool_front/start_django.sh" ]

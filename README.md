@@ -22,30 +22,26 @@ You can get the application up and running on your local dev environment with th
 * Change current working directory to project directory
 * Pre-install the docker environment first, by building and running the required docker containers
 ```
-sh start.sh
+sh docker.sh start
 ```
-* Check docker container status (med and med-front)
+* restart the containers of the COOL system
 ```
-docker ps -a
+sh docker.sh restart
 ```
-* Stop demo dockers
+* Stop the containers of the COOL system
 ```
-docker stop <container-id>
+sh docker.sh stop
 ```
-* save docker
+* clean the containers and images of the COOL system
 ```
-docker save -o med.tar med
-docker save -o med-front.tar med-front
+sh docker.sh clean
 ```
 * load docker
 ```
-docker load --input med.tar
-docker load < med.tar
+docker load --input cool-front.tar
+docker load --input cool-backend.tar
 ```
-* delete docker
-```
-dicker rmi -f image_id
-```
+
 
 * The application is now running at `http://127.0.0.1:8201/`
 
