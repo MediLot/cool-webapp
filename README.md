@@ -44,7 +44,11 @@ docker load --input cool-backend.tar
 
 * The application is now running at `http://127.0.0.1:8201/`
 
-* Please register before you login.
+* For an example user login, use the following details
+```
+User ID: root
+Password: zaq12wsx
+```
 
 # Requirements for uploaded datasets:
 
