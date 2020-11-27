@@ -6,157 +6,138 @@
 {% endblock head %}
 
 {% block    body %}
-<div class="row" style="padding: 30px;">
-	<div class="col-md-3 col-sm-6 col-xs-12 text-center mt-1">
-		<h2><b>{% trans "Admission Person-time" %}</b></h2>
-		<div class="col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6 col-xs-offset-3 col-xs-6">
-			<button class="btn btn-info btn-block"><b>292,278</b></button>
-		</div>
-	</div>
-	<div class="col-md-3 col-sm-6 col-xs-12 text-center mt-1">
-		<h2><b>{% trans "Total Admission Patients" %}</b></h2>
-		<div class="col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6 col-xs-offset-3 col-xs-6">
-			<button class="btn btn-info btn-block"><b>150,205</b></button>
-		</div>
-	</div>
-	<div class="col-md-3 col-sm-6 col-xs-12 text-center mt-1">
-		<h2><b>{% trans "Re-admission Rate" %}</b></h2>
-		<div class="col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6 col-xs-offset-3 col-xs-6">
-			<button class="btn btn-info btn-block"><b>11.152%</b></button>
-		</div>
-	</div>
-	<div class="col-md-3 col-sm-6 col-xs-12 text-center mt-1">
-		<h2><b>{% trans "Daily Visted Users" %}</b></h2>
-		<div class="col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6 col-xs-offset-3 col-xs-6">
-			<button class="btn btn-info btn-block"><b>431</b></button>
-		</div>
-	</div>
-</div>
-<div class="row">
+    <div class="row" style="padding: 30px;">
+        <div class="col-md-3 col-sm-6 col-xs-12 text-center mt-1">
+            <h2><b>{% trans "Total Uploaded Datasets" %}</b></h2>
+            <div class="col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6 col-xs-offset-3 col-xs-6">
+                <button class="btn btn-info btn-block"><b>{{ all_datasets }}</b></button>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12 text-center mt-1">
+            <h2><b>{% trans "Total Analysis Figures" %}</b></h2>
+            <div class="col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6 col-xs-offset-3 col-xs-6">
+                <button class="btn btn-info btn-block"><b>{{ all_figures }}</b></button>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12 text-center mt-1">
+            <h2><b>{% trans "Total Users" %}</b></h2>
+            <div class="col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6 col-xs-offset-3 col-xs-6">
+                <button class="btn btn-info btn-block"><b>{{ all_users }}</b></button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        {% for key,value in databases.items %}
+            <div class="col-xs-12">
+                <div class="panel panel-default panel-container" >
+                    <div class="panel-heading">
+                        <h4>{{ value.name }} ({{ value.date }})</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div  style="height:300px" class="chartpanel" >
+                            <div class="col-xs-2">
+                                <div>
+                                    <h2>Num of IDs: </h2>
+                                    <h1>{{ value.num_ids }}</h1>
+                                </div>
+                                <div>
+                                    <h2>Num of Records: </h2>
+                                    <h1>{{ value.num_records }}</h1>
+                                </div>
+                                <div>
+                                    <h2>Involved Dates: </h2>
+                                    <h1>{{ value.involved_dates }}</h1>
+                                </div>
+                            </div>
+                            <div class="col-xs-10">
+                                {% for fig in value.figures %}
+                                    <div id="{{ fig }}" style="width: 320px;height:280px; float: left;"></div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
 
-	<div class="col-md-4 col-sm-6 col-xs-12">
-		<div class="panel panel-default panel-container" >
-			<div class="panel-heading">
-				<h4>{% trans "Medicine Consumption over Time" %}</h4>
-			</div>
-			<div class="panel-body">
-				<div  style="height:250px" id="medicine" class="chartpanel" ></div>
-			</div>
-		</div>
-	</div>
 
-	<div class="col-md-4 col-sm-6 col-xs-12">
-		<div class="panel panel-default panel-container" >
-			<div class="panel-heading">
-				<h4>{% trans "Disease Diagnosed over Time" %}</h4>
-			</div>
-			<div class="panel-body">
-				<div  style="height:250px" id="disease" class="chartpanel" ></div>
-			</div>
-		</div>
-	</div>
+    </div>
 
-	<div class="col-md-4 col-sm-6 col-xs-12">
-		<div id="panel_dau" class="panel panel-default panel-container" >
-			<div class="panel-heading">
-				<h4>{% trans "Daily Admitted Patients" %}</h4>
-			</div>
-			<div class="panel-body">
-				<div style="height:250px" id="dau" class="chartpanel" ></div>
-			</div>
-		</div>
-	</div>
 
-	<div class="col-md-4 col-sm-6 col-xs-12">
-		<div class="panel panel-default panel-container" >
-			<div class="panel-heading">
-				<h4>{% trans "Admission of Male vs Female in 2012" %}</h4>
-			</div>
-			<div class="panel-body">
-				<div  style="height:250px" id="gender" class="chartpanel" ></div>
-			</div>
-		</div>
-	</div>
-	<div class="col-md-4 col-sm-6 col-xs-12">
-		<div id="panel_map" class="panel panel-default panel-container" >
-			<div class="panel-heading">
-				<h4>{% trans "Patient Citizenship Distribution" %}</h4>
-			</div>
-			<div class="panel-body">
-				<div style="height:250px" id="map" class="chartpanel" ></div>
-			</div>
-		</div>
-	</div>
-
-	<div class="col-md-4 col-sm-6 col-xs-12">
-		<div class="panel panel-default panel-container" >
-			<div class="panel-heading">
-				<h4>{% trans "Composition by Birthyear" %}</h4>
-			</div>
-			<div class="panel-body">
-				<div  style="height:250px" id="birthyear" class="chartpanel" ></div>
-			</div>
-		</div>
-	</div>
-
-	<div class="col-md-8 col-sm-12 col-xs-12" id='last_chart' style="display: none">
-		<div class="panel panel-default panel-container" >
-			<div class="panel-heading">
-				<h4>{% trans "Last Loaded Cohort Analysis Chart" %}</h4>
-			</div>
-			<div class="panel-body">
-				<div id="line" style="height:0px"></div>
-				<div id="heat" style="height:0px;display: none"></div>
-			</div>
-		</div>
-	</div>
-	<!-- <div class="col-md-4 col-sm-12 col-xs-12">
-		<div class="panel panel-default panel-container" >
-			<div class="panel-heading">
-				<h4>Time between purchases</h4>
-			</div>
-			<div class="panel-body">
-				<div  style="height:600px" id="time" class="chartpanel" ></div>
-			</div>
-		</div>
-	</div> -->
-
-</div>
-
-<div class="modal fade" id="detail" role="dialog">
-	<div class="modal-dialog">
-
-		<!-- Modal content-->
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title" id="modal-title">Modal Header</h4>
-			</div>
-			<div id="detail-chart" style="height:600px; width: 500px;"></div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-
-	</div>
-</div>
-
-</div>
 {% endblock %}
 
 {% block scripts %}
-<script>
-	var medicineData = {{ medicineData|safe }};
-	var diseaseData = {{ diseaseData|safe }};
-	var genderData = {{ genderData|safe }};
-	var dauData = {{ dauData|safe }};
-	var map_data = {{ mapData|safe }};
-	var last_loaded = {{ last_loaded|safe }};
-	var birthData = {{ birthData|safe }};
-</script>
-<script type="text/javascript" src="{% url 'javascript-catalog' %}"></script>
-<script src="{% static 'js/world.js' %}"> </script>
-<script src="{% static 'js/dashboard.js' %}"></script>
+    <script type="text/javascript" src="{% url 'javascript-catalog' %}"></script>
+    <script type="text/javascript">
+        {% for key,value in figures.items %}
+            var tem_{{ key }} = echarts.init(document.getElementById("{{ key }}"));
+            {% if value.type == "pie" %}
+                var option_{{ key }} = {
+                    title: {
+                        text: '{{ value.title }}',
+                        subtext: '',
+                        left: 'center'
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: '{a} <br/>{b} : {c} ({d}%)'
+                    },
+                    legend: {
+                        orient: 'vertical',
+                        left: 'left',
+                        data: {{ value.y_label|safe }},
+                    },
+                    series: [
+                        {
+                            name: '{{ value.feature }}',
+                            type: 'pie',
+                            radius: '60%',
+                            center: ['50%', '60%'],
+                            data: [
+                                {% for key2, value2 in value.data.items %}
+                                    {value: {{ value2 }}, name: '{{ key2 }}'},
+                                {% endfor %}
+                            ],
+                            emphasis: {
+                                itemStyle: {
+                                    shadowBlur: 20,
+                                    shadowOffsetX: 0,
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                }
+                            }
+                        }
+                    ]
+                };
+            {% elif value.type == "bar" %}
+                var option_{{ key }} = {
+                    title: {
+                        text: '{{ value.title }}',
+                        subtext: '',
+                        left: 'center'
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'shadow'        // 'line' | 'shadow'
+                        }
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: {{ value.y_label|safe }},
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [{
+                        data: {{ value.data|safe }},
+                        type: 'bar'
+                    }]
+
+                };
+            {% endif %}
+            tem_{{ key }}.setOption(option_{{ key }});
+        {% endfor %}
+    </script>
 {% endblock %}
 
 

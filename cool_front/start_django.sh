@@ -10,6 +10,7 @@ EOD
 }
 
 main(){
+    ./manage.py makemigrations
     ./manage.py migrate
     # create_default_user
     ./manage.py runserver 0.0.0.0:9999

@@ -84,8 +84,9 @@ ENV/
 .mypy_cache/
 
 upload/*
-#cohana/
-cohana-1/
-dashboard/data/example_event.dat
+cohana/*
 
-dim.db
+# dim.db
+# db.sqlite3
+test.ipynb
+

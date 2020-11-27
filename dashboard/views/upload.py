@@ -8,86 +8,22 @@ import os
 import subprocess
 import yaml
 import pandas as pd
+import numpy as np
 import string
 import random
 from dashboard.models import *
+import shutil
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 upload_path = "upload/"
 data_path = "cohana/"
 
-# class Upload( View ):
-#
-#     def get(self, request):
-#         return render(request, "upload.html")
-#
-#     def post( self,request ):
-#         data   = json.loads( request.POST['data' ] )
-#         prefix = datetime.now().strftime('%Y%m%d%H%M%S')
-#         rand_str = ''.join(random.sample(string.ascii_letters + string.digits, 8))
-#         prefix += rand_str
-#         request.session['file_save']=prefix
-#
-#         self._save_file( request, prefix )
-#         self._table_yaml( data, prefix )
-#         self._cube_yaml ( data, prefix )
-#         self._process_file( prefix )
-#
-#         user = user_info.objects.get(user_name=request.session['user'])
-#         new_file = csv_file(
-#             user_id=user,
-#             file_name = request.session['file_name'],
-#             file_save = prefix,
-#         )
-#         new_file.save()
-#
-#         return HttpResponseRedirect('/retention/advance')
-#
-#     def _save_file( self, request, prefix ):
-#         file        = request.FILES ['file']
-#         request.session['file_name'] = file.name
-#         save_name   = prefix
-#         with open ( upload_path + '/%s.csv' % save_name, 'wb' ) as outfile:
-#             for i, chunk in enumerate( file.chunks( 1000 ) ):
-#                 outfile.write( chunk )
-#
-#         rawdata = pd.read_csv(upload_path + '/%s.csv' % prefix)
-#         columns = rawdata.columns
-#         columns = [i.strip() for i in columns if i != '' and i != '\r']
-#         rawdata.columns = columns
-#
-#         os.mkdir(data_path+save_name)
-#         rawdata.to_csv(data_path + '/%s/data.csv' % (save_name), index=False)
-#
-#     def _table_yaml( self, data, prefix ):
-#         with open( data_path + '%s/table.yaml' % prefix, 'w' ) as f:
-#             fields = []
-#             for field in data['fields']:
-#                 fields.append({
-#                     "name":      field['name'],
-#                     "fieldType": field['fieldType']['type'],
-#                     "dataType":  field['fieldType']['dataType'],
-#                 })
-#             f.write( yaml.dump({ 'fields': fields , 'charset': 'utf-8'}, default_flow_style=False ))
-#
-#     def _cube_yaml( self, data, prefix ):
-#         with open(data_path+'%s/cube.yaml' % prefix, 'w' ) as f:
-#             fields = []
-#             for field in data['metrics']:
-#                 aggregator     = field['alligator']
-#                 tableFieldName = field['column']
-#                 name           = field.get('name') or ( '%s-%s' % (tableFieldName, aggregator) )
-#                 fields.append({
-#                     "aggregator":       aggregator,
-#                     "name":             name,
-#                     "tableFieldName":   tableFieldName,
-#                 })
-#             f.write( yaml.dump({ 'measures': fields }, default_flow_style=False ))
-#
-#
-#
-#     def _process_file( self, prefix ):
-#         subprocess.call(['utils/preprocess.sh', prefix])
+if not os.path.exists(upload_path):
+    os.mkdir(upload_path)
+
+if not os.path.exists(data_path):
+    os.mkdir(data_path)
 
 fieldTypes = {
     'User ID':{
@@ -122,14 +58,13 @@ class Upload( View ):
         return render(request, "upload.html")
 
     def post( self,request ):
-        result = {}
-        csv_file = request.FILES["csv_file"]
+        csv_file_content = request.FILES["csv_file"]
         file_name = request.POST.get("name")
 
         rand_str = ''.join(random.sample(string.ascii_letters + string.digits, 8))
         file_save = datetime.now().strftime('%Y%m%d%H%M%S') + rand_str
         f = open(upload_path + file_save + ".csv", 'wb')
-        for chunk in csv_file.chunks():
+        for chunk in csv_file_content.chunks():
             f.write(chunk)
         f.close()
 
@@ -138,8 +73,12 @@ class Upload( View ):
         columns = [i.lower().strip() for i in columns if i != '' and i != '\r']
         rawdata.columns = columns
 
+        if "event" in list(columns):
+            request.session['relateds'] = list(rawdata["event"].unique())
+        else:
+            request.session['relateds'] = []
+
         # print(columns)
-        os.mkdir(data_path+file_save)
         # rawdata.to_csv(data_path + "%s/data.csv" % file_save, index=False)
 
         request.session['columns'] = columns
@@ -148,16 +87,23 @@ class Upload( View ):
 
         return redirect("/column_list/")
 
-class Column_list( View ):
 
+def get_FileSize(filePath):
+    fsize = os.path.getsize(str(filePath))
+    fsize = fsize/float(1024*1024)
+    return round(fsize,2)
+
+
+
+
+class Column_list( View ):
     def get(self, request):
         result = {}
 
-        file_save = request.session['csv_save']
-        data = pd.read_csv(upload_path + file_save + ".csv")
+        columns = request.session['columns']
+        relateds = request.session['relateds']
 
-        columns = list(data.columns)
-        result['columns'] = columns
+        result['columns'] = request.session['columns']
         result['options'] = fieldTypes
 
         result['column_type'] = {}
@@ -171,9 +117,8 @@ class Column_list( View ):
         if "event" in columns:
             result['column_type']["event"] = "Event"
             columns.remove("event")
-            relateds = list(data["event"].unique())
             for related_col in relateds:
-                if related_col in columns:
+                if related_col.lower() in columns:
                     result['column_type'][related_col] = "Event Related"
                     columns.remove(related_col)
         for col in columns:
@@ -182,12 +127,46 @@ class Column_list( View ):
         return render(request, "column_list.html", result)
 
     def post( self,request ):
+        errors = {
+            "type": "Loading data",
+            "advice": "Please check your data format!",
+        }
+
         file_save = request.session['csv_save']
         data = pd.read_csv(upload_path + file_save + ".csv")
 
+
+        # check the format of the dataset
+        check_list = ['User ID', 'Time', 'Event']
+        for check in check_list:
+            check_cols = []
+            for field in request.session['columns']:
+                if request.POST.get(field) == check:
+                    check_cols.append(field)
+
+            if len(check_cols)>1 or len(check_cols) == 0:
+                if len(check_cols)>1:
+                    errors['details'] = ["More than one columns denote the %s: %s" % (check,str(check_cols))]
+                if len(check_cols) == 0:
+                    errors['details'] = ["No column denotes the %s!" %(check)]
+                return render(request, "error.html", errors)
+
+
+        if "value" not in request.session['columns']:
+            errors["details"]= ["No column names value!"]
+            return render(request, "error.html", errors)
+
+        events = list(data['event'].unique())
+        for field in request.session['columns']:
+            if field not in events and fieldTypes[request.POST.get(field)]['type'] == "Segment":
+                errors["details"] = ["%s is not an event, please check again!" %(field)]
+                return render(request, "error.html", errors)
+
+        # preprocess the dataset
         sub_path = data_path + "/%s" % request.session['csv_save']
         if not os.path.exists(sub_path):
             os.mkdir(sub_path)
+
         with open(sub_path + '/table.yaml', 'w') as f:
             fields = []
             for field in request.session['columns']:
@@ -204,14 +183,116 @@ class Column_list( View ):
 
         data.to_csv(data_path + "%s/data.csv" % file_save, index=False)
 
-        subprocess.call(['utils/preprocess.sh', request.session['csv_save']])
+        # subprocess.call(['utils/preprocess.sh', request.session['csv_save']])
+        return_info = subprocess.Popen('utils/preprocess.sh '+ str(request.session['csv_save']), shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
-        user = user_info.objects.get(user_name=request.session['user'])
+        sh_results = []
+        for next_line in return_info.stdout:
+            sh_results.append(next_line.decode("utf-8", "ignore"))
+        if sh_results[-1][:19]!= "Loading Finished in":
+            for next_line in sh_results:
+                print(next_line)
+
+            shutil.rmtree(data_path + file_save)
+            # os.remove(upload_path + file_save + ".csv")
+
+            errors = {
+                "type": "Loading data",
+                "advice": "Please check your data format!",
+                "details": sh_results,
+            }
+            return render(request, "error.html", errors)
+
+        print("[*] Loading data successfully.")
+
+        demographic_info = self.get_demographic_info(request, data)
+
+        with open(sub_path + '/demographic.yaml', 'w') as f:
+            f.write(yaml.dump(demographic_info, default_flow_style=False))
+
+        user = User.objects.get(id=request.user.id)
         new_file = csv_file(
             user_id=user,
             file_name=request.session['csv_name'],
             file_save=request.session['csv_save'],
+            file_size=get_FileSize(upload_path + file_save + ".csv"),
+            num_ids=demographic_info['User ID']['data'],
+            num_records=len(data),
+            involved_dates= "%s to %s" %(demographic_info['Time']['data'][0], demographic_info['Time']['data'][1])
         )
         new_file.save()
 
         return redirect("/database/")
+
+
+    def value_partition(self, col):
+        start = min(col)
+        end = max(col)
+        interval = int((end - start) / 8 + 0.5)
+        sub_col = {}
+
+        sub_col['y'] = []
+        sub_col['x'] = []
+
+        for i in range(9):
+            sub_col['y'].append("[%s,%s)" % (start + interval * i, min(start + interval * (i + 1) - 1, end)))
+            sub_col['x'].append(0)
+        for i in col:
+            sub_col['x'][int((i - start) / interval)] += 1
+        return sub_col
+
+    def get_demographic_info(self, request, df):
+
+        cols = df.columns
+        events = list(df['event'].unique())
+        results = {}
+        results['Value'] = []
+        value_cols = []
+        unique_id = ""
+
+        for col in cols:
+            if request.POST.get(col) == "User ID":
+                sub_col = {
+                    "name": col,
+                    "data": len(df[col].unique()),
+                }
+                results['User ID'] = sub_col
+                unique_id = col
+                value_cols.append(col)
+            elif request.POST.get(col) == "Time":
+                sub_col = {
+                    "name": col,
+                    "data": [np.min(df['time']), np.max(df['time'])],
+                }
+                results['Time'] = sub_col
+            elif request.POST.get(col) == "Event":
+                sub_col = {
+                    "name": col,
+                    "data": dict(df[col].value_counts()),
+                }
+                results['Event'] = sub_col
+            elif col != "value" and col not in events:
+                value_cols.append(col)
+
+        temp = df[value_cols]
+        temp = temp.drop_duplicates()
+        value_cols.remove(unique_id)
+
+        for col in value_cols:
+            lens = len(temp[col].unique())
+            if lens <= 8:
+                sub_col = {
+                    "name": col,
+                    "type": "pie",
+                    "data": dict(temp[col].value_counts())
+                }
+            else:
+                sub_col = {
+                    "name": col,
+                    "type": "bar",
+                    "data": self.value_partition(temp[col])
+                }
+
+            results['Value'].append(sub_col)
+        return results
+

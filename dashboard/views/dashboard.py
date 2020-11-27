@@ -2,32 +2,88 @@ from django.views          import View
 from django.shortcuts      import render, redirect
 from dashboard.models import *
 import json
-import os
+import yaml
 
 from .                      import lang
 
+data_path = "cohana/"
+
+def strTotime(name):
+    return name[:4] + "/" + name[4:6] + "/" + name[6:8]
+
 class Dashboard( View ):
     def get(self, request):
+        all_users = User.objects.count()
+        all_figures = analysis.objects.count()
+        all_datasets = csv_file.objects.count()
 
-        request.session['user'] = "root"
+        databases = {}
+        count = 0
+        selected_datasets = csv_file.objects.filter(user_id=request.user.id)
 
-        user = user_info.objects.filter(user_name="root")
-        if not user.exists():
-            new_user = user_info(
-                user_name="root"
-            )
-            new_user.save()
+        figures = {}
+        figure_index = 0
+        for dataset in selected_datasets:
+            databases[count] = {}
+            databases[count]["name"] = dataset.file_name
+            databases[count]['date'] = strTotime(dataset.file_save)
+            databases[count]['num_ids'] = dataset.num_ids
+            databases[count]['num_records'] = dataset.num_records
+            databases[count]['involved_dates'] = dataset.involved_dates
 
+            with open(data_path + dataset.file_save + "/demographic.yaml", 'r') as stream:
+                demographic_info = yaml.load(stream)
 
-        dirs = [ name for name in os.listdir('./cohana/') if os.path.isdir(os.path.join('./cohana/', name)) ]
-        if len(dirs) == 0:
-            return redirect('/error')
+            databases[count]['figures'] = []
+
+            figures[figure_index] = {
+                "title": demographic_info['Event']['name'],
+                "type": 'pie',
+                "y_label": list(demographic_info['Event']['data'].keys()),
+                "data": demographic_info['Event']['data'],
+
+            }
+            databases[count]['figures'].append(figure_index)
+            figure_index += 1
+
+            for value in demographic_info['Value']:
+                if value['type'] == 'pie':
+                    figures[figure_index] = {
+                        "title": value['name'],
+                        "type": 'pie',
+                        "y_label": [str(i) for i in list(value['data'].keys())],
+                        "data": value['data'],
+
+                    }
+                elif value['type'] == 'bar':
+                    figures[figure_index] = {
+                        "title": value['name'],
+                        "type": 'bar',
+                        "y_label": value['data']['y'],
+                        "data": value['data']['x'],
+                    }
+                databases[count]['figures'].append(figure_index)
+                figure_index += 1
+
+            count += 1
+
+        template = 'dashboard' + lang.getTemplateByLanguage(request)
+        return render(request, template, locals())
+
+class Example_dashboard( View ):
+    def get(self, request):
+        # print(request.user)
+        # print(request.user.id)
+
+        # dirs = [ name for name in os.listdir('./cohana/') if os.path.isdir(os.path.join('./cohana/', name)) ]
+        # if len(dirs) == 0:
+        #     return redirect('/error')
 
         # deal with continent chart
         with open('dashboard/data/continent.dat') as data_file:
             rawData = json.load(data_file)
         rawResult = rawData[u'result']
-        i = 0
+
         continentLegend = []
         continentData = []
         for r in rawResult:
@@ -87,7 +143,7 @@ class Dashboard( View ):
         except Exception as e:
             pass
 
-        template = 'dashboard' + lang.getTemplateByLanguage(request)
+        template = 'example_dashboard' + lang.getTemplateByLanguage(request)
         return render(request, template,{
                 'medicineData':json.dumps(medicineData),
                 'diseaseData':json.dumps(diseaseData),

@@ -1,4 +1,0 @@
-measures:
-- aggregator: RETENTION
-  name: ''
-  tableFieldName: id

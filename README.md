@@ -36,46 +36,33 @@ sh docker.sh stop
 ```
 sh docker.sh clean
 ```
-* load docker
+* manually load docker (if you are running offline). [download](https://www.dropbox.com/sh/1ewexz6dzvfsroo/AABL1bp44gmVQ8cA8s4RAVoAa?dl=0)
 ```
 docker load --input cool-front.tar
 docker load --input cool-backend.tar
 ```
 
-
 * The application is now running at `http://127.0.0.1:8201/`
 
-* For an example user login, use the following details
-```
-User ID: root
-Password: zaq12wsx
-```
+* Please register before you login.
 
 # Requirements for uploaded datasets:
 
 1. CSV file with "," as delimiter (typically dumped from a database table)
 
-2. Preferably includes `id`, `time`, `event` columns, appropriately named
+2. Preferably includes `id`, `time`, `event`,`value`,`time` columns, appropriately named
 
-3. Number of columns in dataset should correspond to number of elements in the `event` column  
+3. The columns of events in the dataset should match to elements in the `event` column  
 
-4.  `time` column should follow "YYYY-MM-DD" format
+4. `time` column should follow "YYYY-MM-DD" format
+
+5. All of the demographic columns (such as age, gender, race) and the `value` column should be in the integer format. 
+
+6. Fill the columns of events with `None`
+
 
 * Example dataset: [here](example-data/example.csv).  
 
-# Scripts:
-
-1.  [init.sh](init.sh): Loads the demo dataset and starts two dockers. Uses [preprocess.py](utils/preprocess.py) to load the demo dataset and run init.sh.
-
-2.  [start.sh](start.sh): Builds the dockers for COOL and COOL front-end, and starts them in the background
-
-3.  [stop.sh](stop.sh): Stops the dockers
-
-4.  [restart.sh](restart.sh): Stops and restarts the dockers
-
-5.  [docker.sh](docker.sh): A sample script for installing docker in AWS EC2
-  
-6.  [clean.sh](clean.sh): Removes all docker containers and all docker images relating to COOL
 
 # Directory Descriptions
 

@@ -40,7 +40,7 @@ body {
                 <div style="padding: 1em;">
 
                     {% if form.errors %}
-                    <p class="error">Sorry, that's not a valid username or password</p>
+                        <p class="error">Sorry, it's not a valid username or password</p>
                     {% endif %}
 
                     <div class="form-group">
@@ -55,15 +55,12 @@ body {
 
 
                     <button type="submit" class="btn btn-info btn-block">Login</button>
-                    <!-- <a href="/register/" class="btn btn-default btn-block" role="button">Register</a> -->
+                    <a href="/register/" class="btn btn-primary btn-block" role="button">Register</a>
 
 
                     <!--<a href="{ url 'custom_password_reset' }" class="pull-right">Forgot Password</a>-->
                     <input type="hidden" name="next" value="{{ next|escape }}">
-
                 </div>
-                <br>
-                <br>
                 {% csrf_token %}
             </form>
 

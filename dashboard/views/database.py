@@ -8,11 +8,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 upload_path = "upload/"
 data_path = "cohana/"
 
+def strTotime(name):
+    return name[:4] + "/" + name[4:6] + "/" + name[6:8] + " " + name[8:10] + ":" + name[10:12] + ":" + name[12:14]
+
 class Database(View):
     def get(self, request):
         result = {}
-        user = user_info.objects.get(user_name=request.session['user'])
-        files = csv_file.objects.filter(user_id=user)
+        files = csv_file.objects.filter(user_id=request.user.id)
         if files.exists():
             result['files'] = {}
             for index, file in enumerate(files):
@@ -20,12 +22,15 @@ class Database(View):
                     "index": index + 1,
                     "file_name": file.file_name,
                     "file_save": file.file_save,
-                    "file_date": file.file_save[:4] + "/" + file.file_save[4:6] + "/" + file.file_save[6:8]
+                    "num_ids": file.num_ids,
+                    "num_records": file.num_records,
+                    "involved_dates": file.involved_dates,
+                    "file_date": strTotime(file.file_save),
+                    "file_size": file.file_size,
                 }
         return render(request, "database.html", result)
 
     def post( self,request ):
-        result = {}
         file_operation = request.POST.get('file_operation')
         file_save = request.POST.get('file_save')
 

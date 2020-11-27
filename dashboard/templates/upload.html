@@ -8,13 +8,6 @@
 
 {% block    body %}
 
-{#<form id='uploadForm' action='./upload/' method='post' enctype='multipart/form-data'>#}
-{#    {% csrf_token %}#}
-{#    <input type="file" name='file' id="fileElem" accept='.csv' class="hidden">#}
-{#    <div ng-app='app'>#}
-{#        <ui-view></ui-view>#}
-{#    </div>#}
-{#</form>#}
 <style>
     .label {
         color: white;
@@ -41,7 +34,7 @@
 	<div>
 		<h2><b>{% trans "Upload" %}</b></h2><br />
         <h2>Upload your file</h2>
-        <form method="POST" enctype="multipart/form-data" action="./upload/">{% csrf_token %}
+        <form method="POST" enctype="multipart/form-data" action="upload/">{% csrf_token %}
             <input type="file" name='csv_file' id="csv_file" accept='.csv' class="hidden"/>
             <label class = "label" for="csv_file"><i class = "fa fa-cloud-upload"></i> Choose a file...</label><br />
             <br/><label id="uploadedfile"></label>
@@ -61,5 +54,4 @@
     }
 </script>
 <script type="text/javascript" src="{% url 'javascript-catalog' %}"></script>
-{#<script src='{% static "/components/razer/uploadData/app.js" %}'></script>#}
 {% endblock scripts %}

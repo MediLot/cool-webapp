@@ -1181,11 +1181,12 @@ function loyalQuery(query1, query2){
 						}
 					}]
 				};
-                var cols = responseData['data']['columes'].reverse();
+                var cols = responseData['data']['columes'];
 				option['series'] = responseData['data']['values'];
 				option['legend']['data'] = cols;
 				option2['series'][0]['data'] = responseData['data']['heatmap'];
-				option2['yAxis']['data'] = cols.sort();
+				option2['yAxis']['data'] = cols;
+				console.log(option2);
 				var chart = echarts.init(document.getElementById('line'));
 				var chart2 = echarts.init(document.getElementById('heat'));
 				var max = 0;

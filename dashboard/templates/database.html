@@ -46,9 +46,13 @@
             <thead>
                 <tr>
                     <th>Index</th>
-                    <th>Name</th>
+                    <th>Database Name</th>
                     <th>File Name</th>
-                    <th>Date Uploaded</th>
+                    <th>Num of IDs</th>
+                    <th>Num of Records</th>
+                    <th>Involved Dates</th>
+                    <th>Uploaded Date</th>
+                    <th>File Size</th>
                     <th colspan="2" style="text-align: center;">Option</th>
                 </tr>
             </thead>
@@ -60,7 +64,11 @@
                     <td>{{ file.index }}</td>
                     <td>{{ file.file_name }}</td>
                     <td>{{ file.file_save }}</td>
+                    <td>{{ file.num_ids }}</td>
+                    <td>{{ file.num_records }}</td>
+                    <td>{{ file.involved_dates }}</td>
                     <td>{{ file.file_date }}</td>
+                    <td>{{ file.file_size }}MB</td>
                     <td style="text-align: center;">
                         <form method="POST" enctype="multipart/form-data" action="./database/">{% csrf_token %}
                             <input name="file_save" value="{{ file.file_save }}" type="hidden">

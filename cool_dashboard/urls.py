@@ -33,10 +33,8 @@ urlpatterns += i18n_patterns(
     url(r'^', include('dashboard.urls')),
 )
 
-js_info_dict = {
-    'packages': ('scape-nuh-cn.razer',),
-}
+js_info_dict = {}
 
 urlpatterns += i18n_patterns(
-    url(r'^jsi18n/$', javascript_catalog, js_info_dict, name='javascript-catalog'),
+    url(r'^jsi18n/$', javascript_catalog, name='javascript-catalog'),
 )

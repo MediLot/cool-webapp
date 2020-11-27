@@ -5,23 +5,29 @@
 {% endblock head %}
 
 {% block    body %}
-<div class="col-md-12 col-sm-12 col-xs-12">
-  <div class="row"> 
-    <div class="alert alert-danger">
-      <strong>Critical Error!</strong> Please contact the technical support.
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="row">
+            <div class="alert alert-danger">
+                <strong>{{ type }} Error!</strong> {{ advice }}
+            </div>
+            <h3>Detail information:</h3>
+            {% for info in details %}
+                <div> {{ info }}</div>
+            {% endfor %}
+{#            <ul>#}
+{#                <li>Q1: blablabla? <p>blabla blabla blabla.</p></li>#}
+{#                <li>Q2: blablabla? <p>blabla blabla blabla.</p></li>#}
+{#                <li>Q3: blablabla? <p>blabla blabla blabla.</p></li>#}
+{#                <li>Q4: blablabla? <p>blabla blabla blabla.</p></li>#}
+{#                <li>Q5: blablabla? <p>blabla blabla blabla.</p></li>#}
+{#                <li>Q6: blablabla? <p>blabla blabla blabla.</p></li>#}
+{#                <li>Q7: blablabla? <p>blabla blabla blabla.</p></li>#}
+{#                <li>Q8: blablabla? <p>blabla blabla blabla.</p></li>#}
+{#                <li>Q9: blablabla? <p>blabla blabla blabla.</p></li>#}
+{#            </ul>#}
+        </div>
+        <p class="row">
+            For technical support, please put the question in GitHub or contact with qingpeng@comp.nus.edu.sg
+        </p>
     </div>
-    <h3>FAQ:</h3>
-    <ul>
-    <li>Q1: blablabla? <p>blabla blabla blabla.</p></li>
-    <li>Q2: blablabla? <p>blabla blabla blabla.</p></li>
-    <li>Q3: blablabla? <p>blabla blabla blabla.</p></li>
-    <li>Q4: blablabla? <p>blabla blabla blabla.</p></li>
-    <li>Q5: blablabla? <p>blabla blabla blabla.</p></li>
-    <li>Q6: blablabla? <p>blabla blabla blabla.</p></li>
-    <li>Q7: blablabla? <p>blabla blabla blabla.</p></li>
-    <li>Q8: blablabla? <p>blabla blabla blabla.</p></li>
-    <li>Q9: blablabla? <p>blabla blabla blabla.</p></li>
-    </ul>
-  </div>
-  </div>
 {% endblock body %}

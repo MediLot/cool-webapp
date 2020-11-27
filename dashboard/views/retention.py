@@ -13,19 +13,14 @@ from pdb                    import set_trace as st
 
 class Retention( View ):
     def get(self, request):
-        # dirs = [ name for name in os.listdir('./cohana/') if os.path.isdir(os.path.join('./cohana/', name)) ]
-        # if len(dirs) == 0:
-        #     return redirect('/error')
-        # dirs.sort(reverse=True)
-        # file = dirs[0]
         file = request.session['file_save']
         events = []
-        try:
-            with open(('./cohana/%s/.dat')) as data_file:
-                data = json.load(data_file)
-                events = data['EVENTS']
-        except Exception as e:
-            pass
+        # try:
+        #     with open(('./cohana/%s/.dat')) as data_file:
+        #         data = json.load(data_file)
+        #         events = data['EVENTS']
+        # except Exception as e:
+        #     pass
         djangoData = {
             "table.yaml": yaml.load( open( './cohana/'+file+"/table.yaml" ) ),
             "cube.yaml":  yaml.load( open( './cohana/'+file+"/cube.yaml" ) ),

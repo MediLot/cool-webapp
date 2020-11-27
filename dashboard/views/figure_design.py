@@ -13,11 +13,19 @@ data_path = "cohana/"
 class Figure_design(View):
     def get(self, request):
         result = {}
-        result['columns'] = request.session['columns']
+
+        # result['columns'] = request.session['columns']
+        result['columns'] = []
+        sub_path = data_path + "/%s" % request.session['file_save']
+        with open(sub_path+"/table.yaml", 'r') as stream:
+            spec = yaml.load(stream)
+        for col in spec['fields']:
+            if col['fieldType'] == "UserKey":
+                result['columns'].append(col['name'])
+
         return render(request, "figure_design.html", result)
 
     def post( self,request ):
-        result = {}
         sub_path = data_path + "/%s" % request.session['file_save']
         agg = request.POST.get("aggregator")
         analysis_name = request.POST.get("name")
@@ -32,7 +40,7 @@ class Figure_design(View):
                 })
                 f.write(yaml.dump({'measures': fields}, default_flow_style=False))
 
-        elif agg == "SIMPLE":
+        elif agg == "RANGE":
             pass
 
         request.session['analysis_name'] = analysis_name
