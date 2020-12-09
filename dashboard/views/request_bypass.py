@@ -1,3 +1,4 @@
+import logging
 import requests
 import re
 import json
@@ -5,6 +6,8 @@ import json
 SERVER = 'http://cool-backend:9998'
 # SERVER = 'http://127.0.0.1:8188'
 # SERVER = 'http://poi.life:9998'
+
+logger = logging.getLogger()
 
 def pass_reload(datasource, server=SERVER):
     headers = { \
@@ -25,9 +28,10 @@ def pass_request(query, server=SERVER):
             'Content-Type':'application/json', \
             'Accept' :'*/*'
             }
+    logger.debug("pass request: " + json.dumps(query))
     print("pass request: " + json.dumps(query))
     r = requests.post(server+'/v1/cohort/analysis',data = json.dumps(query), headers = headers)
-    # print(r.text)
+    logger.debug(r.text)
     return json.loads(r.text)
 
 def pass_funnel(query, server=SERVER):
@@ -38,9 +42,8 @@ def pass_funnel(query, server=SERVER):
             'Content-Type':'application/json', \
             'Accept' :'*/*'
             }
-    print("pass funnel: " + json.dumps(query))
+    logger.debug("pass funnel: " + json.dumps(query))
     r = requests.post(server+'/v1/cohort/funnel',data = json.dumps(query), headers = headers)
-
     return json.loads(r.text)
 
 def get_danger_request(server=SERVER):
@@ -64,13 +67,14 @@ def pass_create_request(query, server=SERVER):
             'Accept' :'*/*'
             }
     print("pass create request:" + json.dumps(query))
+    logger.debug("pass create request:" + json.dumps(query))
     r = requests.post(server+'/v1/cohort/manage/create', data = json.dumps(query), headers = headers)
-    # print(r.text)
-
+    logger.debug("pass create response:" + r.text)
     return json.loads(r.text)
 
 def removeCohort(cohort, server=SERVER):
     url = server+'/v1/cohort/manage/remove/' + cohort
+    logger.debug("Remove cohort: "+url)
     print("Remove cohort: "+url)
     r = requests.get(url)
     return r.status_code

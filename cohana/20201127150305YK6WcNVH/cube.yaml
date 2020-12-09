@@ -1,4 +1,4 @@
 measures:
 - aggregator: RETENTION
-  name: demo
+  name: 'demo 8 '
   tableFieldName: id

@@ -106,7 +106,7 @@ function redirectToSimple() {
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">{% trans "Age Range" %}</label>
                         <div class="col-md-1 col-sm-1 col-xs-3">
-                            <input type="text" id="min-age" required="required" class="form-control col-md-1 col-xs-1" placeholder="1">
+                            <input type="text" id="min-age" required="required" class="form-control col-md-1 col-xs-1" placeholder="0">
                         </div>
                         <div style="float:left; line-height:33px;">-</div>
                         <div class="col-md-1 col-sm-1 col-xs-3">
@@ -119,7 +119,7 @@ function redirectToSimple() {
                                 <option value="weeks">{% trans "weeks" %}</option>
                                 <option value="months">{% trans "months" %}</option>
                                 <option value="years">{% trans "years" %}</option>
-                                <option value="events">{% trans "events" %}</option>
+{#                                <option value="events">{% trans "events" %}</option>#}
                             </select>
                         </div>
                     </div>

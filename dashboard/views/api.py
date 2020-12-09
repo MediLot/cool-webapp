@@ -116,7 +116,6 @@ class Api( View ):
             #         json.dump(response, jsonFile)
             #     # return HttpResponse(json.dumps(response))
 
-
             if mode == "cohort":
                 response['code'] = 200
                 query = request.POST.get("data", "")
@@ -229,4 +228,3 @@ class Api( View ):
             response['code'] = 500
             response['message'] = "Internal Error: " + str(e)
             return HttpResponse(json.dumps(response))
-        
