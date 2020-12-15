@@ -3,6 +3,12 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+class upload_history(models.Model):
+    # last upload file
+    # file_id = models.AutoField(primary_key=True)
+    user_id = models.ForeignKey(User,on_delete=models.CASCADE)
+    file_save = models.CharField(max_length=50)
+
 class csv_file(models.Model):
     file_id = models.AutoField(primary_key=True)
     user_id = models.ForeignKey(User,on_delete=models.CASCADE)

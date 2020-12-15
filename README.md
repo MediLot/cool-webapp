@@ -60,7 +60,7 @@ Password: zaq12wsx
 
 4. `time` column should follow "YYYY-MM-DD" format
 
-5. All of the demographic columns (such as age, gender, race) and the `value` column should be in the integer format. 
+5. All of the demographic columns (such as age, gender, race) and the `value` column should be in the integer (Int32) format. 
 
 6. Fill the columns of events with `None`
 

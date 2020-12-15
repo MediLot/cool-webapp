@@ -57,8 +57,21 @@ class Upload( View ):
         return render(request, "upload.html")
 
     def post( self,request ):
+        errors = {
+            "type": "Uploading data",
+            "advice": "Please upload your data!",
+        }
+
+        if "csv_file" not in request.FILES:
+            errors['details'] = ["No dataset is uploaded!"]
+            return render(request, "error.html", errors)
+
         csv_file_content = request.FILES["csv_file"]
         file_name = request.POST.get("name")
+
+        if file_name == "":
+            errors['details'] = ["Please input a name"]
+            return render(request, "error.html", errors)
 
         rand_str = ''.join(random.sample(string.ascii_letters + string.digits, 8))
         file_save = datetime.now().strftime('%Y%m%d%H%M%S') + rand_str
@@ -77,12 +90,26 @@ class Upload( View ):
         else:
             request.session['relateds'] = []
 
-        # print(columns)
-        # rawdata.to_csv(data_path + "%s/data.csv" % file_save, index=False)
-
         request.session['columns'] = columns
         request.session['csv_name'] = file_name
         request.session['csv_save'] = file_save
+
+        user = User.objects.get(id=request.user.id)
+        try:
+            his = upload_history.objects.get(user_id=user)
+            his.file_save=file_save
+            his.save()
+        except:
+            upload_history.objects.create(user_id=user, file_save=file_save)
+
+        his_all = []
+        for his in upload_history.objects.all():
+            his_all.append(his.file_save)
+
+        files = os.listdir(upload_path)
+        for file in files:
+            if file[:-4] not in his_all:
+                os.remove(upload_path+file)
 
         return redirect("/column_list/")
 
@@ -96,11 +123,10 @@ def getFoldSize(foldPath, size=0):
     for root, dirs, files in os.walk(foldPath):
         for f in files:
             size += os.path.getsize(os.path.join(root, f))
-            print(f)
+            # print(f)
     return size
 
 
-import logging
 class Column_list( View ):
     def get(self, request):
         if request.session['csv_save'] == "error":
