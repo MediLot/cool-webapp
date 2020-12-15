@@ -7,7 +7,7 @@ SERVER = 'http://cool-backend:9998'
 # SERVER = 'http://127.0.0.1:8188'
 # SERVER = 'http://poi.life:9998'
 
-logger = logging.getLogger()
+logger = logging.getLogger('django')
 
 def pass_reload(datasource, server=SERVER):
     headers = { \
@@ -105,6 +105,8 @@ def get_plotdata_linechart(result):
     ret = {'Data': data}
     return ret
 
+
+import numpy as np
 def get_plotdata_chart(result):
     rawResult = result[u'result']
     col = []
@@ -112,50 +114,68 @@ def get_plotdata_chart(result):
     series = []
     heat = []
 
-    top = 20
-    # r0 = sorted(rawResult, key=lambda x: x[u'measure'], reverse=True)
-    r0 = rawResult
-    for i in range(0, top):
-        for r in r0:
-            cohort = re.findall(r"\((.+?)\)", r[u'cohort'])[0]
-            if cohort not in col:
-                col.append(cohort)
-                data[cohort] = []
-                break
-    top = len(col)
+    for r in rawResult:
+        # cohort = re.findall(r"\((.+?)\)", r[u'cohort'])[0]
+        cohort = r['cohort'][1:-1]
+        if cohort not in col:
+            col.append(cohort)
+            data[cohort] = []
+
+    # print(col)
 
     for r in rawResult:
-    # for r in sorted(rawResult, key=lambda x: x[u'age'], reverse=True):
-        cohort = re.findall(r"\((.+?)\)", r[u'cohort'])[0]
+        # for r in sorted(rawResult, key=lambda x: x[u'age'], reverse=True):
+        # cohort = re.findall(r"\((.+?)\)", r[u'cohort'])[0]
+        cohort = r['cohort'][1:-1]
         if cohort in col:
             age = r[u'age']
-            notFound = True
-            for d in data[cohort]:
-                if d[0] == age:
-                    d[1] = d[1] + r[u'measure']
-                    notFound = False
-            if notFound:
-                pair = []
-                pair.append(age)
-                pair.append(r[u'measure'])
-                data[cohort].append(pair)
+            pair = []
+            pair.append(age)
+            pair.append(r[u'measure'])
+            pair.append(r[u'max'])
+            pair.append(r[u'min'])
+            pair.append(float(r[u'sum']) / r[u'num'])
+            pair.append(r[u'num'])
+            data[cohort].append(pair)
+
+    # print(data)
+    range_dict = {}
+    range_dict['series'] = []
+    range_dict['cols'] = []
     for cohort in col:
         line = {}
         line['name'] = cohort
         line['type'] = 'line'
-        line['data'] = data[cohort]
+        line['data'] = np.array(data[cohort])[:, :2].astype(int).tolist()
         series.append(line)
         index = col.index(cohort)
         data0 = sorted(data[cohort], key=lambda x: x[0])
-        # prev = data0[0][1]
-        # print(data0)
 
         for x in data0:
-            heat.append([x[0], index , int(x[1] / data0[0][1] * 100)])
-            # heat.append([x[0], index, x[1]])
-            # prev = x[1]
+            heat.append([x[0], index, int((x[1] + 1e-10) / (data0[0][1] + 1e-10) * 100)])
 
-    ret = {'values': series, 'columes': col, 'heatmap': heat}
+        range_dict['cols'].append("%s_max" % (cohort))
+        tem = {}
+        tem['name'] = "%s_max" % (cohort)
+        tem['type'] = "custom"
+        tem['data'] = [[x[0], x[2], round(x[4], 2)] for x in data0]
+        range_dict['series'].append(tem)
+
+        range_dict['cols'].append("%s_min" % (cohort))
+        tem = {}
+        tem['name'] = "%s_min" % (cohort)
+        tem['type'] = "custom"
+        tem['data'] = [[x[0], x[3], round(x[4], 2)] for x in data0]
+        range_dict['series'].append(tem)
+
+        range_dict['cols'].append("%s_%s" % (cohort, "avg"))
+        tem = {}
+        tem['name'] = "%s_avg" % (cohort)
+        tem['type'] = "line"
+        tem['data'] = [[x[0], round(x[4], 2)] for x in data0]
+        range_dict['series'].append(tem)
+
+    ret = {'values': series, 'columes': col, 'heatmap': heat, 'range': range_dict}
     return ret
 
 def transfer_retention_chart(result):

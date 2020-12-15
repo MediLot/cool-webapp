@@ -87,17 +87,17 @@ elif [ $1x == "clean"x ]; then
         docker rmi $(docker images --filter=reference=$front -q)
     fi
 
-elif [ $1x == "test"x ]; then
-    echo "[*] test function for debug"
-    if [ -n $(docker ps -q --filter ancestor=$front) ]; then
-        echo " [*] stop docker: $front"
-        docker stop $(docker ps -q --filter ancestor=$front)
-    fi
+# elif [ $1x == "test"x ]; then
+#     echo "[*] test function for debug"
+#     if [ -n "$(docker ps -q --filter ancestor=$front)" ]; then
+#         echo " [*] stop docker: $front"
+#         # docker stop $(docker ps -q --filter ancestor=$front)
+#     fi
 
-    if [ -n $(docker ps -q --filter ancestor=$backend) ]; then
-        echo " [*] stop docker: $backend"
-        docker stop $(docker ps -q --filter ancestor=$backend)
-    fi
+#     if [ -n $(docker ps -q --filter ancestor=$backend) ]; then
+#         echo " [*] stop docker: $backend"
+#         # docker stop $(docker ps -q --filter ancestor=$backend)
+#     fi
 else
     echo "[!] can not recognize the commond $1"
 	echo "[!] support commond: start, restart, stop, clean"

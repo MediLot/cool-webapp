@@ -73,8 +73,10 @@ class Figure_detail(View):
                     result[count]['title'] = aly.analysis_name + "(heat map)"
                     result[count]['type'] = "heatmap"
                     count += 1
-
-
+                    result[count] = self.to_range(data)
+                    result[count]['title'] = aly.analysis_name + "(range map)"
+                    result[count]['type'] = "range"
+                    count += 1
 
         return render(request, "figure_detail.html", {"figures": result})
 
@@ -105,4 +107,11 @@ class Figure_detail(View):
         result['data'] = data['data']['heatmap']
         result['min'] = 0
         result['max'] = 100
+        return result
+
+    def to_range(self, data):
+        data = data['data']['range']
+        result = {}
+        result['cols'] = data['cols']
+        result['series'] = data['series']
         return result

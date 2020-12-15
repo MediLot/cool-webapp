@@ -7,10 +7,17 @@
 
 {% block    body %}
     <div class="row" style="padding: 30px;">
+        {% if root_flag %}
         <div class="col-md-3 col-sm-6 col-xs-12 text-center mt-1">
             <h2><b>{% trans "Total Uploaded Datasets" %}</b></h2>
             <div class="col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6 col-xs-offset-3 col-xs-6">
                 <button class="btn btn-info btn-block"><b>{{ all_datasets }}</b></button>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12 text-center mt-1">
+            <h2><b>{% trans "Total Used Storage" %}</b></h2>
+            <div class="col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6 col-xs-offset-3 col-xs-6">
+                <button class="btn btn-info btn-block"><b>{{ all_storage }} MB</b></button>
             </div>
         </div>
         <div class="col-md-3 col-sm-6 col-xs-12 text-center mt-1">
@@ -25,6 +32,26 @@
                 <button class="btn btn-info btn-block"><b>{{ all_users }}</b></button>
             </div>
         </div>
+        {% endif %}
+        <div class="col-md-4 col-sm-6 col-xs-12 text-center mt-1">
+            <h2><b>{% trans "Uploaded Datasets" %}</b></h2>
+            <div class="col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6 col-xs-offset-3 col-xs-6">
+                <button class="btn btn-info btn-block"><b>{{ sel_datasets }}</b></button>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12 text-center mt-1">
+            <h2><b>{% trans "Used Storage" %}</b></h2>
+            <div class="col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6 col-xs-offset-3 col-xs-6">
+                <button class="btn btn-info btn-block"><b>{{ sel_storage }} MB</b></button>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12 text-center mt-1">
+            <h2><b>{% trans "Analysis Figures" %}</b></h2>
+            <div class="col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6 col-xs-offset-3 col-xs-6">
+                <button class="btn btn-info btn-block"><b>{{ sel_figures }}</b></button>
+            </div>
+        </div>
+
     </div>
     <div class="row">
         {% for key,value in databases.items %}
@@ -35,6 +62,7 @@
                     </div>
                     <div class="panel-body">
                         <div  style="height:300px" class="chartpanel" >
+
                             <div class="col-xs-2">
                                 <div>
                                     <h2>Num of IDs: </h2>

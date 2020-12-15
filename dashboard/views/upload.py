@@ -3,7 +3,7 @@ from django.shortcuts       import render, redirect
 from django.views           import View
 from datetime               import datetime
 
-import json
+import logging
 import os
 import subprocess
 import yaml
@@ -13,6 +13,9 @@ import string
 import random
 from dashboard.models import *
 import shutil
+import sqlite3
+
+logger = logging.getLogger('django')
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -30,10 +33,6 @@ fieldTypes = {
         'type': "UserKey",
         "datatype": "String"
     },
-    # 'attribute':{
-    #     'type': "Attribute",
-    #     "datatype": "String"
-    # },
     'Event':{
         'type': "Action",
         "datatype": "String"
@@ -93,13 +92,21 @@ def get_FileSize(filePath):
     fsize = fsize/float(1024*1024)
     return round(fsize,2)
 
+def getFoldSize(foldPath, size=0):
+    for root, dirs, files in os.walk(foldPath):
+        for f in files:
+            size += os.path.getsize(os.path.join(root, f))
+            print(f)
+    return size
 
 
-
+import logging
 class Column_list( View ):
     def get(self, request):
-        result = {}
+        if request.session['csv_save'] == "error":
+            return redirect("/upload/")
 
+        result = {}
         columns = request.session['columns']
         relateds = request.session['relateds']
 
@@ -133,8 +140,12 @@ class Column_list( View ):
         }
 
         file_save = request.session['csv_save']
-        data = pd.read_csv(upload_path + file_save + ".csv")
 
+
+        if request.session['csv_save'] == "error":
+            return redirect("/upload/")
+        else:
+            data = pd.read_csv(upload_path + file_save + ".csv")
 
         # check the format of the dataset
         check_list = ['User ID', 'Time', 'Event']
@@ -194,7 +205,9 @@ class Column_list( View ):
                 print(next_line)
 
             shutil.rmtree(data_path + file_save)
-            # os.remove(upload_path + file_save + ".csv")
+            os.remove(upload_path + file_save + ".csv")
+
+            request.session['csv_save'] = "error"
 
             errors = {
                 "type": "Loading data",
@@ -204,9 +217,9 @@ class Column_list( View ):
             return render(request, "error.html", errors)
 
         print("[*] Loading data successfully.")
+        os.remove(upload_path + file_save + ".csv")
 
         demographic_info = self.get_demographic_info(request, data)
-
         with open(sub_path + '/demographic.yaml', 'w') as f:
             f.write(yaml.dump(demographic_info, default_flow_style=False))
 
@@ -215,12 +228,14 @@ class Column_list( View ):
             user_id=user,
             file_name=request.session['csv_name'],
             file_save=request.session['csv_save'],
-            file_size=get_FileSize(upload_path + file_save + ".csv"),
+            file_size=get_FileSize(data_path + file_save + "/data.csv"),
             num_ids=demographic_info['User ID']['data'],
             num_records=len(data),
             involved_dates= "%s to %s" %(demographic_info['Time']['data'][0], demographic_info['Time']['data'][1])
         )
         new_file.save()
+
+        self.clean_dim()
 
         return redirect("/database/")
 
@@ -295,4 +310,14 @@ class Column_list( View ):
 
             results['Value'].append(sub_col)
         return results
+
+    def clean_dim(self):
+        conn = sqlite3.connect('dim.db')
+        cur = conn.cursor()
+        cur.execute("select * from sqlite_master;")
+        files_list = os.listdir("./cohana")
+
+        for table in cur.fetchall():
+            if table[1] not in files_list:
+                cur.execute("DROP TABLE '%s';" % table[1])
 

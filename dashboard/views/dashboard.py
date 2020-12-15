@@ -13,13 +13,22 @@ def strTotime(name):
 
 class Dashboard( View ):
     def get(self, request):
-        all_users = User.objects.count()
-        all_figures = analysis.objects.count()
-        all_datasets = csv_file.objects.count()
+        if request.user.username == "root":
+            all_users = User.objects.count()
+            all_figures = analysis.objects.count()
+            all_datasets = csv_file.objects.count()
+            all_storage = 0
+            root_flag =True
+            for db in csv_file.objects.all():
+                all_storage += db.file_size
+            print(all_users,all_figures,all_datasets)
 
         databases = {}
         count = 0
         selected_datasets = csv_file.objects.filter(user_id=request.user.id)
+        sel_datasets = selected_datasets.count()
+        sel_figures = 0
+        sel_storage = 0
 
         figures = {}
         figure_index = 0
@@ -30,6 +39,9 @@ class Dashboard( View ):
             databases[count]['num_ids'] = dataset.num_ids
             databases[count]['num_records'] = dataset.num_records
             databases[count]['involved_dates'] = dataset.involved_dates
+
+            sel_figures += analysis.objects.filter(file_id=dataset.file_id).count()
+            sel_storage += dataset.file_size
 
             with open(data_path + dataset.file_save + "/demographic.yaml", 'r') as stream:
                 demographic_info = yaml.load(stream)

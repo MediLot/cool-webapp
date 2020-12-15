@@ -104,7 +104,7 @@ function redirectToSimple() {
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">{% trans "Age Range" %}</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">{% trans "Time Range" %}</label>
                         <div class="col-md-1 col-sm-1 col-xs-3">
                             <input type="text" id="min-age" required="required" class="form-control col-md-1 col-xs-1" placeholder="0">
                         </div>
@@ -225,7 +225,7 @@ function redirectToSimple() {
                         </div>
                     </div>
                     <!--COHORT SELECTION-->
-                    <div class="form-group form-section-label"><label class="control-label section-title col-md-3 col-sm-3 col-xs-12">{% trans "Birth Criteria" %}</label></div>
+                    <div class="form-group form-section-label"><label class="control-label section-title col-md-3 col-sm-3 col-xs-12">{% trans "Start Condition" %}</label></div>
                     <div id="events-container" class="events-container">
                         <!--BEGIN COHORT EVENT-->
                         <div class="event-container">
@@ -352,6 +352,7 @@ function redirectToSimple() {
 <div>
     <div id="line" style="height:0px"></div>
     <div id="heat" style="height:0px"></div>
+    <div id="range" style="height:0px"></div>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="myModal" role="dialog">
