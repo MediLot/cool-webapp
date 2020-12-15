@@ -36,7 +36,7 @@ sh docker.sh stop
 ```
 sh docker.sh clean
 ```
-* manually load docker (if you are running offline). [download](https://www.dropbox.com/sh/1ewexz6dzvfsroo/AABL1bp44gmVQ8cA8s4RAVoAa?dl=0)
+* manually load docker (if you are running offline). [download](https://www.dropbox.com/sh/pvkrychaf29nebc/AADdjOFhpPFoCwPS9N01rwOGa?dl=0)
 ```
 docker load --input cool-front.tar
 docker load --input cool-backend.tar
@@ -64,17 +64,19 @@ Password: zaq12wsx
 
 6. Fill the columns of events with `None`
 
+7. Remove all the events with no `value`
+
 
 * Example dataset: [here](example-data/example.csv).  
 
 
 # Directory Descriptions
 
-* __Cool__:
+* __cool_backend__:
 The ```cool``` directory contains Cool application's backend.
-* __Cool_Dashboard__:
+* __cool_front__:
 The ```cool_dashboard``` directory contains settings for Django server.
-* __Dashboard__:
+* __dashboard__:
 The ```dashboard``` directory contains the Main Django Application.
 
 # Dataset Preparation
@@ -94,15 +96,13 @@ Each entry has three attributes, i.e., name, fieldType and dataType.
 
 1. The name attribute is a unique string representing the respective column names.
 
-2. For fieldType attribute, there are six possible values: "AppKey", "UserKey", "Action", "ActionTime", "Segment" and "Metric".
+2. For fieldType attribute, there are five possible values: "UserKey", "Action", "ActionTime", "Segment" and "Metric".
 
-* "AppKey" indicates that the respective column contains the unique id of a certain application. As of now, only a single application in a dataset is supported, and so this field is not applicable.
-
-* "UserKey", "Action" and "ActionTime" indicates that the respective column contains the user id, event and event time. These three columns jointly compose the primary key of the dataset, and must be preesnt in the dataset.
-
-* "Segment" indicates that the respective column contains String values.
-
-* "Metric" indicates that the respective column contains Int32 values.
+    * "UserKey", "Action" and "ActionTime" indicates that the respective column contains the user id, event and event time. These three columns jointly compose the primary key of the dataset, and must be preesnt in the dataset.
+    
+    * "Segment" indicates that the respective column contains String values.
+    
+    * "Metric" indicates that the respective column contains Int32 values.
 
 3. The dataType attribute only has two possible values: String or Int32.
 
@@ -120,7 +120,7 @@ Each entry defines an aggregate function and hence, has two additional attribute
 
 * "baseField" indicates which column of the original schema will be aggregated and takes the name attribute of the that column as its value.
 
-* "aggregator" indicates the aggregate function to apply. For now, it can be **COUNT**, **SUM**, **RETENTION**. More aggregate functions are being developed.
+* "aggregator" indicates the aggregate function to apply. For now, it can be **RETENTION**. More aggregate functions are being developed.
   
 
 ## Cube.yaml
@@ -146,4 +146,5 @@ For each entry in the measures part, it contains three attributes: "aggregator",
 
 # Contact
 
-* Dr Zhongle Xie can be reached [here](mailto:zhongle@comp.nus.edu.sg).
+* Dr Zhongle Xie (backend): zhongle@comp.nus.edu.sg.
+* Dr Qingpeng Cai (frontend): qingpeng@comp.nus.edu.sg
