@@ -90,5 +90,6 @@ cohana/*
 # db.sqlite3
 test.ipynb
 send-req.py
+test.dat
 
 test-data/*
