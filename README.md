@@ -11,7 +11,7 @@ As an integrated system with the support of several newly proposed operators on 
 
 For more information, you can refer to the [paper](https://www.comp.nus.edu.sg/~ooibc/icde20cool.pdf).
 
-In this project, COOL is applied to Covid19 analysis.
+In this project, COOL is applied to Covid19 analysis and we also provide a demo video [here](https://www.comp.nus.edu.sg/~dbsystem/cool/#/demo).
 
 # Set up
 * Docker is required to set up the application's dependencies and can be installed [here](https://www.docker.com/get-started).
@@ -69,13 +69,14 @@ Password: zaq12wsx
 7. Remove all the events with no `value`
 
 * Example dataset: [here](example-data/example.csv).  
+* Example video: [here](https://www.comp.nus.edu.sg/~dbsystem/cool/#/demo).
 
 
 # Directory Descriptions
 
-* __cool_backend__:
-The ```cool``` directory contains Cool application's backend.
-* __cool_front__:
+* __cool_backend__ & __cool_front__:
+These two directories contain settings of dockers for the COOL system.
+* __cool_dashboard__:
 The ```cool_dashboard``` directory contains settings for Django server.
 * __dashboard__:
 The ```dashboard``` directory contains the Main Django Application.
@@ -86,6 +87,7 @@ The ```dashboard``` directory contains the Main Django Application.
 This section describes the schema of the dataset used in data compacting and query processing.
 
 * Example file: [here](/example-data/example-table.yaml).
+
 
 ### For data compacting
 
