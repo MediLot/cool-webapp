@@ -46,7 +46,7 @@ docker load --input cool-backend.tar
 
 * For an example user login, use the following details
 ```
-User ID: root
+User ID: admin
 Password: zaq12wsx
 ```
 
