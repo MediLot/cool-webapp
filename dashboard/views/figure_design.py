@@ -14,7 +14,6 @@ class Figure_design(View):
     def get(self, request):
         result = {}
 
-        # result['columns'] = request.session['columns']
         result['columns'] = []
         sub_path = data_path + "/%s" % request.session['file_save']
         with open(sub_path+"/table.yaml", 'r') as stream:

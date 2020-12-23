@@ -1,25 +1,15 @@
-import pprint
-import os 
 from django.views           import View
 from django.http            import HttpResponse
-from django.shortcuts       import render, redirect
 import json
 import sys
 import traceback
 import sqlite3
-import csv
-from . import request_bypass
 
 PAGE_LENGTH = 10
 
 class Dim( View ):
 
     def get(self, request):
-        # dirs = [ name for name in os.listdir('./cohana/') if os.path.isdir(os.path.join('./cohana/', name)) ]
-        # if len(dirs) == 0:
-        #     return redirect('/error')
-        # dirs.sort(reverse=True)
-        # table = dirs[0]
 
         table = request.session['file_save']
         
@@ -52,7 +42,6 @@ class Dim( View ):
                 else:
                     data = []
                     for row in c.execute('SELECT value FROM "%s" WHERE col="%s" AND value LIKE "%\%s%" ORDER BY col DESC LIMIT 100' % (table, col, term)):
-                    # for row in c.execute('SELECT value FROM dim WHERE col="'+col+'" AND instr(value, "' + term + '")>0 ORDER BY col DESC LIMIT 50'):
                         data.append(row[0])
                     response['results'] = data
                     response['pagination'] = {}

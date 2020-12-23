@@ -5,7 +5,6 @@ from django.shortcuts                   import redirect
 
 from . import views
 
-# index_redirect = lambda request: redirect( '/cn/dashboard' )
 index_redirect = lambda request: redirect( '/en/dashboard' )
 
 urlpatterns = [
@@ -19,17 +18,7 @@ urlpatterns = [
 	url(r'^figure_design',			login_required(views.Figure_design.as_view()), name='figure_design'),
 	url(r'^figure_detail', 			login_required(views.Figure_detail.as_view()), name='figure_detail'),
 	url(r'^figure',					login_required(views.Figure.as_view()), name='Figure'),
-	url(r'^retention$', 			login_required(views.SimpleRetention.as_view()), name='retention'),
 	url(r'^retention/advance', 		login_required(views.Retention.as_view()), name='retention'),
-
-	# following function are not used
-	url(r'^example', login_required(views.Example_dashboard.as_view()), name='example_dashboard'),
-	url(r'^mvc', login_required(views.MVC.as_view()), name='mvc'),
-	url(r'^basket', login_required(views.BASKET.as_view()), name='basket'),
-	url(r'^funnel/advance', login_required(views.Funnel.as_view()), name='funnel'),
-	url(r'^funnel', login_required(views.SimpleFunnel.as_view()), name='funnel'),
-	url(r'^changeLang', login_required(views.ChangeLang.as_view()), name='funnel'),
-	url(r'^error', login_required(views.Error.as_view()), name='funnel'),
 
 	url(r'^',						include('django.contrib.auth.urls') ),
 

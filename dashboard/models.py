@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 
 class upload_history(models.Model):
     # last upload file
-    # file_id = models.AutoField(primary_key=True)
     user_id = models.ForeignKey(User,on_delete=models.CASCADE)
     file_save = models.CharField(max_length=50)
 

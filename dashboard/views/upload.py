@@ -123,7 +123,6 @@ def getFoldSize(foldPath, size=0):
     for root, dirs, files in os.walk(foldPath):
         for f in files:
             size += os.path.getsize(os.path.join(root, f))
-            # print(f)
     return size
 
 
@@ -220,7 +219,6 @@ class Column_list( View ):
 
         data.to_csv(data_path + "%s/data.csv" % file_save, index=False)
 
-        # subprocess.call(['utils/preprocess.sh', request.session['csv_save']])
         return_info = subprocess.Popen('utils/preprocess.sh '+ str(request.session['csv_save']), shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
         sh_results = []
@@ -228,7 +226,7 @@ class Column_list( View ):
             sh_results.append(next_line.decode("utf-8", "ignore"))
         if sh_results[-1][:19]!= "Loading Finished in":
             for next_line in sh_results:
-                print(next_line)
+                logger.info(next_line)
 
             shutil.rmtree(data_path + file_save)
             os.remove(upload_path + file_save + ".csv")
@@ -242,7 +240,7 @@ class Column_list( View ):
             }
             return render(request, "error.html", errors)
 
-        print("[*] Loading data successfully.")
+        logger.info("[*] Loading data successfully.")
         os.remove(upload_path + file_save + ".csv")
 
         demographic_info = self.get_demographic_info(request, data)
@@ -341,7 +339,7 @@ class Column_list( View ):
         conn = sqlite3.connect('dim.db')
         cur = conn.cursor()
         cur.execute("select * from sqlite_master;")
-        files_list = os.listdir("./cohana")
+        files_list = os.listdir(data_path)
 
         for table in cur.fetchall():
             if table[1] not in files_list:

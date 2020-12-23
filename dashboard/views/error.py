@@ -1,6 +1,5 @@
 from django.views           import View
 from django.shortcuts       import render, redirect
-import json
 from .                      import lang
 
 class Error( View ):

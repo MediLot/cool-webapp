@@ -1,4 +1,0 @@
-measures:
-- aggregator: RETENTION
-  name: PCR_analysis
-  tableFieldName: id
