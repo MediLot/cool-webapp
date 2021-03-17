@@ -241,7 +241,6 @@ $(document).ready(function() {
         //placeholder: 'Select some events',
         minimumResultsForSearch: 999,
     }).on('change', function() {
-        //console.log($(this).val());
         if($(this).val() === "events") {
             $(".range-others").show();
         } else {
@@ -297,7 +296,6 @@ function initTableYamlSelect2(jqObj) {
     }).on('change', function(d) {
         var idx = $(this).val();
         var obj = djangoData['table.yaml']['fields'][idx];
-        // console.log(obj);
         if(obj.dataType === 'String'){
             var datetimepicker = $(this).parents(".select-multi-stage").find(".datetimepicker");
             $(datetimepicker).hide();
@@ -311,14 +309,12 @@ function initTableYamlSelect2(jqObj) {
                     url: '/dim/v1/?col=' + obj.name,
                     dataType: 'json',
                     data: function(params) {
-                        // console.log("params", params);
                         return {
                             term: params.term || '',
                             page: params.page || 1
                         }
                     },
                     processResults: function(resp) {
-                        // console.log("server response: " ,resp);
                         resp.results = resp.results.map(function(d,i) {
                             return { id: d, text: d };
                         });
@@ -405,7 +401,6 @@ function initSpecialTableYamlSelect2(jqObj) {
     }).on('change', function(d) {
         var idx = $(this).val();
         var obj = djangoData['table.yaml']['fields'][idx];
-        // console.log(obj);
         var secondStage = $(this).parents(".select-multi-stage").find(".second-stage");
         secondStage.show();
         secondStage.select2('destroy').empty().select2({
@@ -414,14 +409,12 @@ function initSpecialTableYamlSelect2(jqObj) {
                 url: '/dim/v1/?col=' + obj.name,
                 dataType: 'json',
                 data: function(params) {
-                    // console.log("params", params);
                     return {
                         term: params.term || '',
                         page: params.page || 1
                     }
                 },
                 processResults: function(resp) {
-                    // console.log("server response: " ,resp);
                     resp.results = resp.results.map(function(d,i) {
                         return { id: d, text: d };
                     });
@@ -549,7 +542,6 @@ function buildLoyal(){
         var eventSize = $($(".event-container .userSelection")[h]).find(".row").size();
         var events = [];
         for(var i = 0; i < eventSize; i++){
-            // console.log($("#eventSelection .row")[i]);
             var event = JSON.parse(eventTemplate);
             var index = $($($(".event-container .userSelection")[h]).find(".row .data-table-yaml")[i]).val();
 
@@ -612,7 +604,6 @@ function buildQuery(){
         var eventSize = $($(".event-container .eventSelection")[h]).find(".row").size();
         var events = [];
         for(var i = 0; i < eventSize; i++){
-            // console.log($("#eventSelection .row")[i]);
             var event = JSON.parse(eventTemplate);
             var index = $($($(".event-container .eventSelection")[h]).find(".row .data-table-yaml")[i]).val();
 
@@ -748,14 +739,8 @@ function buildQuery(){
         } else {
             var v1 = parseInt($($("#global-filters-container").find('.min')[i]).val());
             var v2 = parseInt($($("#global-filters-container").find('.max')[i]).val());
-            console.log(i)
-            console.log($("#global-filters-container").find('.min')[i]);
-            console.log($($("#global-filters-container").find('.min')[i]).val());
-            console.log($($("#global-filters-container").find('.max')[i]).val());
-            console.log(v1,v2);
             v1 = Number.isInteger(v1) ? v1 : 0;
             v2 = Number.isInteger(v2) ? v2 : 100;
-            console.log(v1,v2);
             if (v2 < v1) {
                 v2 = v1 + 1;
             }
@@ -800,7 +785,6 @@ $('#query-form')[0].onsubmit = function(){
     if($('#filter-users-checkbox').is(":checked")){
         var loyalCreate = buildLoyal();
         var query = buildQuery();
-        console.log(query)
         query['inputCohort'] = 'loyal';
         loyalQuery(query, loyalCreate);
     }else{
@@ -985,9 +969,7 @@ function singleQuery(query){
                 }
                 option['xAxis']['min'] = -1;
                 option['xAxis']['max'] = maxAge+1;
-                console.log(option2);
                 option2['xAxis']['data'] = xAxisArray;
-                // console.log(responseData['data']['heatmap']);
                 option2['yAxis']['data'] = cols;
                 var chart = echarts.init(document.getElementById('line'));
                 var chart2 = echarts.init(document.getElementById('heat'));
@@ -1256,9 +1238,6 @@ function loyalQuery(query1, query2){
                         });
                 }
 
-                console.log(option);
-                console.log(option2);
-                console.log(option3);
                 var chart = echarts.init(document.getElementById('line'));
                 var chart2 = echarts.init(document.getElementById('heat'));
                 var chart3 = echarts.init(document.getElementById('range'));

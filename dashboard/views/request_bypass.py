@@ -80,7 +80,10 @@ def get_plotdata_chart(result):
             pair.append(r[u'measure'])
             pair.append(r[u'max'])
             pair.append(r[u'min'])
-            pair.append(float(r[u'sum']) / r[u'num'])
+            if float(r[u'num']) == 0.:
+                pair.append(0.0)
+            else:
+                pair.append(float(r[u'sum']) / r[u'num'])
             pair.append(r[u'num'])
             data[cohort].append(pair)
 
