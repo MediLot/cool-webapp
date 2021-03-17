@@ -38,8 +38,8 @@ sh docker.sh clean
 ```
 * manually load docker (if you are running offline). [download](https://www.dropbox.com/sh/pvkrychaf29nebc/AADdjOFhpPFoCwPS9N01rwOGa?dl=0)
 ```
-docker load --input cool-front.tar
-docker load --input cool-backend.tar
+docker load --input cool-front.zip
+docker load --input cool-backend.zip
 ```
 
 * The application is now running at `http://127.0.0.1:8201/`
