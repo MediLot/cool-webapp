@@ -798,6 +798,7 @@ $('#query-form')[0].onsubmit = function(){
 function singleQuery(query){
     $("#line").hide();
     $("#heat").hide();
+    $("#range").hide();
     $("#loading").show();
     $.ajax({
         type: "POST",
@@ -872,7 +873,6 @@ function singleQuery(query){
                         containLabel: true
                     },
                     xAxis: {
-                        data: [],
                         max: 30,
                         type: 'value'
                     },
@@ -925,23 +925,12 @@ function singleQuery(query){
                         label: {
                             normal: {
                                 textStyle:{
-                                    color:"black",
-                                    fontSize:10
+                                    color:"black"
                                 },
                                 show: true,
                                 formatter: function (info) {
-                                    for(var i in info){
-                                        var value = info.value[2];
-                                        if(Math.abs(value) > 1000000000)
-                                            value = (value/1000000000).toFixed(0)+"B";
-                                        else if(Math.abs(value) > 1000000)
-                                            value = (value/1000000).toFixed(0)+"M";
-                                        else if(Math.abs(value) > 1000)
-                                            value = (value/1000).toFixed(0)+"K";
-                                        else
-                                            value = value;
-                                    };
-                                    return value;
+                                    var value = info.value[2];
+                                    return value+"%";
                                 }
                             }
                         },
@@ -956,42 +945,82 @@ function singleQuery(query){
                         }
                     }]
                 };
+                var option3 = {
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'shadow',
+                        }
+                    },
+                    legend: {
+                        data: [],
+                        orient: 'horizontal',
+                    },
+                    xAxis: {},
+                    yAxis: {},
+                    series: [],
+                };
 
-                var cols = responseData['data']['columes'].reverse();
+                var cols = responseData['data']['columes'];
                 option['series'] = responseData['data']['values'];
                 option['legend']['data'] = cols;
-
                 option2['series'][0]['data'] = responseData['data']['heatmap'];
+                option2['yAxis']['data'] = cols;
+
+                option3['legend']['data'] = responseData['data']['range']['cols'];
+                for(var i_range in responseData['data']['range']['series']){
+                    if(responseData['data']['range']['series'][i_range]['type'] === "line")
+                        option3['series'].push({
+                            name: responseData['data']['range']['series'][i_range]['name'],
+                            type: 'line',
+                            data: responseData['data']['range']['series'][i_range]['data'],
+                            label: {
+                                show: true
+                            },
+                        });
+                    if(responseData['data']['range']['series'][i_range]['type'] === "custom")
+                        option3['series'].push({
+                            name: responseData['data']['range']['series'][i_range]['name'],
+                            type: 'custom',
+                            renderItem: renderItem,
+                            data: responseData['data']['range']['series'][i_range]['data'],
+                            z:3,
+                        });
+                }
+
+                var chart = echarts.init(document.getElementById('line'));
+                var chart2 = echarts.init(document.getElementById('heat'));
+                var chart3 = echarts.init(document.getElementById('range'));
+                var max = 0;
+                var min = 0;
+                for(var i_heatmap in responseData['data']['heatmap']){
+                    if(responseData['data']['heatmap'][i_heatmap][2] > max)
+                        max = responseData['data']['heatmap'][i_heatmap][2];
+                    if(responseData['data']['heatmap'][i_heatmap][2] < min)
+                        min = responseData['data']['heatmap'][i_heatmap][2];
+                }
+                option2.visualMap.max = max;
+                option2.visualMap.min = min;
 
                 var xAxisArray = [];
                 for(var k = 0; k < maxAge + 1; k++){
                     xAxisArray.push(k);
                 }
-                option['xAxis']['min'] = -1;
-                option['xAxis']['max'] = maxAge+1;
+                option['xAxis']['max'] = maxAge;
                 option2['xAxis']['data'] = xAxisArray;
-                option2['yAxis']['data'] = cols;
-                var chart = echarts.init(document.getElementById('line'));
-                var chart2 = echarts.init(document.getElementById('heat'));
-                var max = 0;
-                var min = 0;
-                for(var i in responseData['data']['heatmap']){
-                    if(responseData['data']['heatmap'][i][2] > max)
-                        max = responseData['data']['heatmap'][i][2];
-                    if(responseData['data']['heatmap'][i][2] < min)
-                        min = responseData['data']['heatmap'][i][2];
-                }
-                option2.visualMap.max = max;
-                option2.visualMap.min = min;
                 $("#line").css("height", "450px");
                 $("#heat").css("height", "750px");
+                $("#range").css("height", "450px");
                 $("#loading").hide();
                 $("#line").show();
                 $("#heat").show();
+                $("#range").show();
                 chart.resize();
                 chart.setOption(option);
                 chart2.resize();
                 chart2.setOption(option2);
+                chart3.resize();
+                chart3.setOption(option3);
                 $('html, body').animate({
                     scrollTop: $("#line").offset().top
                 }, 500);
@@ -999,6 +1028,7 @@ function singleQuery(query){
                 $(window).on('resize', function() {
                     chart.resize();
                     chart2.resize();
+                    chart3.resize();
                 });
             }else{
                 $("#loading").hide();
